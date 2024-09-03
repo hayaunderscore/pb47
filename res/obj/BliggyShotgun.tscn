@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://cb8efme6e53ew"]
+[gd_scene load_steps=17 format=3 uid="uid://cb8efme6e53ew"]
 
 [ext_resource type="Script" path="res://scripts/ent/gun.gd" id="1_ejbi8"]
+[ext_resource type="Material" uid="uid://dr0cnqamm5pou" path="res://res/FastRotsprite3x.tres" id="2_qdjyn"]
 [ext_resource type="Texture2D" uid="uid://cuh5whpmcfwg8" path="res://gfx/caret/guns.png" id="2_sm42i"]
 [ext_resource type="Script" path="res://addons/projectiles_plugin/2d/patterns/pattern_shooter2d.gd" id="2_x3o47"]
 [ext_resource type="Script" path="res://addons/projectiles_plugin/2d/patterns/pattern_elem2d.gd" id="4_fq3uh"]
@@ -67,6 +68,7 @@ script = ExtResource("1_ejbi8")
 [node name="SpritePivot" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="SpritePivot" groups=["GunGroup"]]
+material = ExtResource("2_qdjyn")
 position = Vector2(1, -6)
 texture = ExtResource("2_sm42i")
 centered = false

@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cv7bosg2uh0vd"]
+[gd_scene load_steps=6 format=3 uid="uid://cv7bosg2uh0vd"]
 
 [ext_resource type="Script" path="res://addons/projectiles_plugin/2d/projectiles/projectile2d.gd" id="1_nhlt3"]
+[ext_resource type="Material" uid="uid://dr0cnqamm5pou" path="res://res/FastRotsprite3x.tres" id="2_t71s2"]
 [ext_resource type="Texture2D" uid="uid://cuh5whpmcfwg8" path="res://gfx/caret/guns.png" id="2_yyqei"]
 [ext_resource type="PackedScene" uid="uid://bkjxmmnxr2ah0" path="res://components/hitstop.tscn" id="3_fxsx5"]
 
@@ -15,6 +16,7 @@ damage = 8.0
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("2_t71s2")
 scale = Vector2(2, 2)
 texture = ExtResource("2_yyqei")
 region_enabled = true

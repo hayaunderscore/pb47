@@ -60,6 +60,28 @@ var gunaxis: Vector2
 var last_floor: bool = false
 
 var checkpoint : Vector2
+var last_velocity: Vector2
+const SOFTCOL_MOVE_AMOUNT = 12
+const SOFTCOL_MOVE_AMOUNT_MIDDLE = 9
+
+func move_according_to_softcol(delta):
+	if not is_on_ceiling(): return
+	if $SoftCol1.is_colliding() and $SoftCol2.is_colliding() and $SoftCol3.is_colliding(): return
+	if not $SoftCol1.is_colliding() && $SoftCol2.get_collision_normal() == Vector2.DOWN:
+		global_position.x = $SoftCol1.global_position.x + SOFTCOL_MOVE_AMOUNT
+		if test_move(transform, velocity * delta):
+			global_position.x = $SoftCol1.global_position.x - SOFTCOL_MOVE_AMOUNT
+		velocity = last_velocity
+	elif not $SoftCol2.is_colliding() && $SoftCol1.get_collision_normal() == Vector2.DOWN:
+		global_position.x = $SoftCol2.global_position.x + SOFTCOL_MOVE_AMOUNT_MIDDLE
+		if test_move(transform, velocity * delta):
+			global_position.x = $SoftCol2.global_position.x - SOFTCOL_MOVE_AMOUNT_MIDDLE
+		velocity = last_velocity
+	elif not $SoftCol3.is_colliding() && $SoftCol1.get_collision_normal() == Vector2.DOWN:
+		global_position.x = $SoftCol3.global_position.x + SOFTCOL_MOVE_AMOUNT
+		if test_move(transform, velocity * delta):
+			global_position.x = $SoftCol3.global_position.x - SOFTCOL_MOVE_AMOUNT
+		velocity = last_velocity
 
 func _ready() -> void:
 	for scene in defaultGuns:
@@ -99,6 +121,18 @@ func _physics_process(delta: float) -> void:
 	col.disabled = ledgeRay.is_colliding()
 	colPointy.disabled = !col.disabled
 	
+	var prefix: String = ""
+	match guns[currentGun].id:
+		SHOTGUN_ID:
+			if guns[currentGun].gunCooldown != 0:
+				prefix = "Evil"
+		MACHINEGUN_ID:
+			if guns[currentGun].gunCooldown != 0:
+				prefix = "Evil"
+		REVOLVER_ID:
+			if guns[currentGun].gunCooldown > (2.0-0.2):
+				prefix = "Evil"
+	
 	var axis: float = Input.get_axis("ui_left", "ui_right")
 	if axis:
 		if abs(velocity.x) > MAX_SPEED && axis != facing:
@@ -108,16 +142,18 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, MAX_SPEED * axis, ACCELERATION)
 		facing = axis
-		anim.play("Walk")
+		var last = anim.current_animation_position
+		anim.play(prefix + "Walk")
+		anim.seek(last)
 	else:
 		velocity.x = move_toward(velocity.x, 0, DECELERATION)
-		anim.play("Idle")
+		anim.play(prefix + "Idle")
 	faceLerp = lerpf(faceLerp, facing, 0.3)
 	if faceLerp > 0.25 or faceLerp < -0.25:
 		spritePivot.scale.x = faceLerp
 	$SlopeCheck.scale.x = facing
 	if not is_on_floor():
-		anim.play("Airborne")
+		anim.play("Airborne" if velocity.y < 0 else "Airborne2")
 	
 	var gunselect: float = Input.get_axis("switch_left", "switch_right")
 	if Input.is_action_just_pressed("switch_left") or Input.is_action_just_pressed("switch_right"):
@@ -210,7 +246,9 @@ func _physics_process(delta: float) -> void:
 			phantomCamera.follow_offset.y = lerp(phantomCamera.follow_offset.y, 0.0, abs(velocity.y)/MAX_SPEED*2/30)
 
 	last_floor = is_on_floor()
+	last_velocity = velocity
 	move_and_slide()
+	move_according_to_softcol(delta)
 	
 func add_gun(gun: BliggyGun):
 	gun.player = self

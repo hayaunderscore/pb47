@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://addons/Point2D/scripts/Point2D.gd" id="1_e1gr5"]
 
-[sub_resource type="Gradient" id="Gradient_ngks4"]
+[sub_resource type="Gradient" id="Gradient_cc0qk"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.641, 0.7)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0.391, 0, 0, 0, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_3tj6u"]
-gradient = SubResource("Gradient_ngks4")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f3h2a"]
+gradient = SubResource("Gradient_cc0qk")
 width = 256
 height = 256
 fill = 1
@@ -63,7 +63,7 @@ metadata/_edit_lock_ = true
 position = Vector2(340, 244)
 energy = 1.854
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_3tj6u")
+texture = SubResource("GradientTexture2D_f3h2a")
 texture_scale = 3.918
 script = ExtResource("1_e1gr5")
 enable_shadow = true
