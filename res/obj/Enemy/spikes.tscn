@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://cyvaneiau6687"]
+
+[ext_resource type="Script" path="res://scripts/ent/enemies/spikes.gd" id="1_3di8v"]
+[ext_resource type="Texture2D" uid="uid://dlbstqtmb1gy3" path="res://gfx/ent/enemy/misc_ent.png" id="2_vjhxv"]
+[ext_resource type="PackedScene" uid="uid://4pflw7xx7eql" path="res://components/hitbox.tscn" id="5_uvuvf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8tv4y"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xnbpq"]
+size = Vector2(24, 16)
+
+[node name="Spikes" type="CharacterBody2D"]
+position = Vector2(0, 16)
+collision_layer = 16
+script = ExtResource("1_3di8v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-27.5, -55)
+texture = ExtResource("2_vjhxv")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 55, 55)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_8tv4y")
+disabled = true
+
+[node name="HitboxComponent" parent="." instance=ExtResource("5_uvuvf")]
+collision_layer = 32
+collision_mask = 4
+automatically_deplete_health = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_xnbpq")

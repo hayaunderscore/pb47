@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8sa4gew8j0l4"]
+
+[ext_resource type="Script" path="res://scripts/ent/switch.gd" id="1_yuffi"]
+[ext_resource type="Texture2D" uid="uid://81dynu2yckv3" path="res://gfx/ent/misc/shittyswitch.png" id="2_3u8sl"]
+[ext_resource type="PackedScene" uid="uid://duv6e1ggout2v" path="res://components/health.tscn" id="3_k3xvr"]
+[ext_resource type="PackedScene" uid="uid://4pflw7xx7eql" path="res://components/hitbox.tscn" id="3_sb3e5"]
+[ext_resource type="PackedScene" uid="uid://bkjxmmnxr2ah0" path="res://components/hitstop.tscn" id="5_xs1we"]
+[ext_resource type="Shader" path="res://res/shaders/broly_ki.gdshader" id="6_15k0e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8tv4y"]
+size = Vector2(24, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xnbpq"]
+size = Vector2(40, 48)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_58ly3"]
+shader = ExtResource("6_15k0e")
+
+[node name="Swithc" type="CharacterBody2D"]
+position = Vector2(0, 16)
+collision_layer = 16
+script = ExtResource("1_yuffi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -28)
+texture = ExtResource("2_3u8sl")
+hframes = 2
+region_rect = Rect2(0, 0, 55, 55)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_8tv4y")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_k3xvr")]
+max_health = 1
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_sb3e5")]
+collision_layer = 32
+collision_mask = 4
+health_component = NodePath("../HealthComponent")
+automatically_deplete_health = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_xnbpq")
+
+[node name="HitstopComponent" parent="." instance=ExtResource("5_xs1we")]
+hitstop_time = 0.2
+
+[node name="Line2D" type="Line2D" parent="."]
+z_index = 4096
+material = SubResource("ShaderMaterial_58ly3")
+points = PackedVector2Array(0, -48, 0, -48)
+width = 4.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2

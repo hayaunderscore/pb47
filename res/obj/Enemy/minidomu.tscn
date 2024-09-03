@@ -1,0 +1,266 @@
+[gd_scene load_steps=20 format=3 uid="uid://bffx63bu1shtf"]
+
+[ext_resource type="Script" path="res://scripts/ent/enemies/minidomu.gd" id="1_4t8lh"]
+[ext_resource type="Texture2D" uid="uid://cjo6575p0irru" path="res://gfx/ent/enemy/domumini.png" id="2_efsx2"]
+[ext_resource type="PackedScene" uid="uid://duv6e1ggout2v" path="res://components/health.tscn" id="3_ijro6"]
+[ext_resource type="PackedScene" uid="uid://bkjxmmnxr2ah0" path="res://components/hitstop.tscn" id="4_61mci"]
+[ext_resource type="PackedScene" uid="uid://4pflw7xx7eql" path="res://components/hitbox.tscn" id="5_hyrwy"]
+[ext_resource type="AudioStream" uid="uid://cpwbh0yxm4lm0" path="res://sfx/new/minidomuAlarm.wav" id="6_euhwt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnllp"]
+atlas = ExtResource("2_efsx2")
+region = Rect2(110, 0, 55, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mki21"]
+atlas = ExtResource("2_efsx2")
+region = Rect2(165, 0, 55, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rygiv"]
+atlas = ExtResource("2_efsx2")
+region = Rect2(0, 0, 55, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7mnv"]
+atlas = ExtResource("2_efsx2")
+region = Rect2(55, 0, 55, 55)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_arm37"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xnllp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mki21")
+}],
+"loop": true,
+"name": &"Dead",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rygiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7mnv")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rrs6k"]
+size = Vector2(32, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5wsc"]
+size = Vector2(16, 36)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xurkb"]
+radius = 192.375
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0qcts"]
+size = Vector2(96, 68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3stvv"]
+size = Vector2(184, 192)
+
+[sub_resource type="Animation" id="Animation_ti6rm"]
+resource_name = "Explode"
+length = 0.5
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_euhwt")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_euhwt")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_euhwt")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_euhwt")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_euhwt")
+}],
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Dead"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:speed_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"explode"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_xb82j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Dead"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:speed_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nypj8"]
+_data = {
+"Explode": SubResource("Animation_ti6rm"),
+"RESET": SubResource("Animation_xb82j")
+}
+
+[node name="MiniDomu" type="CharacterBody2D"]
+position = Vector2(0, 16)
+collision_layer = 16
+script = ExtResource("1_4t8lh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -28)
+sprite_frames = SubResource("SpriteFrames_arm37")
+animation = &"Dead"
+autoplay = "Run"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -22)
+shape = SubResource("RectangleShape2D_rrs6k")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_ijro6")]
+max_health = 1
+
+[node name="HitstopComponent" parent="." instance=ExtResource("4_61mci")]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_hyrwy")]
+collision_layer = 32
+collision_mask = 4
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_m5wsc")
+
+[node name="MiniRange" type="Area2D" parent="."]
+modulate = Color(1, 1, 1, 0.184314)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MiniRange"]
+position = Vector2(0, -48)
+shape = SubResource("CircleShape2D_xurkb")
+
+[node name="ExplodeRange" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 36
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplodeRange"]
+position = Vector2(0, -22)
+shape = SubResource("RectangleShape2D_0qcts")
+
+[node name="ExplodeRange2" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 36
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplodeRange2"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_3stvv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nypj8")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="JumpCheck" type="RayCast2D" parent="Node2D"]
+position = Vector2(16, -28)
+target_position = Vector2(24, 0)
+
+[connection signal="area_entered" from="MiniRange" to="." method="_on_mini_range_area_entered"]
+[connection signal="area_entered" from="ExplodeRange" to="." method="_on_explode_range_entered"]

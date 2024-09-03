@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://cuoieq2bx3p6t"]
+
+[ext_resource type="Script" path="res://scripts/ent/enemy.gd" id="1_2m0gk"]
+[ext_resource type="Texture2D" uid="uid://cg1x1ptfrwnon" path="res://gfx/ent/enemy/neco.png" id="2_lbhaw"]
+[ext_resource type="PackedScene" uid="uid://duv6e1ggout2v" path="res://components/health.tscn" id="3_t5lo1"]
+[ext_resource type="PackedScene" uid="uid://bkjxmmnxr2ah0" path="res://components/hitstop.tscn" id="4_3meji"]
+[ext_resource type="PackedScene" uid="uid://4pflw7xx7eql" path="res://components/hitbox.tscn" id="4_xgqe0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3asic"]
+atlas = ExtResource("2_lbhaw")
+region = Rect2(110, 0, 55, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7l108"]
+atlas = ExtResource("2_lbhaw")
+region = Rect2(0, 0, 55, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyycd"]
+atlas = ExtResource("2_lbhaw")
+region = Rect2(55, 0, 55, 55)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_arm37"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3asic")
+}],
+"loop": true,
+"name": &"Dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7l108")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hyycd")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rrs6k"]
+size = Vector2(32, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5wsc"]
+size = Vector2(16, 36)
+
+[node name="Enemy" type="CharacterBody2D"]
+position = Vector2(0, 16)
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_2m0gk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -28)
+sprite_frames = SubResource("SpriteFrames_arm37")
+animation = &"Run"
+autoplay = "Run"
+frame_progress = 0.512579
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -22)
+shape = SubResource("RectangleShape2D_rrs6k")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_t5lo1")]
+default_health = 2
+max_health = 2
+
+[node name="HitstopComponent" parent="." instance=ExtResource("4_3meji")]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_xgqe0")]
+collision_layer = 32
+collision_mask = 4
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_m5wsc")

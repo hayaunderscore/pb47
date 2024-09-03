@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://ceg4tyincitry"]
+
+[ext_resource type="Script" path="res://scripts/ent/gun.gd" id="1_w2oqd"]
+[ext_resource type="Script" path="res://addons/projectiles_plugin/2d/patterns/pattern_shooter2d.gd" id="3_6c2ci"]
+[ext_resource type="FontFile" uid="uid://b8jlvkt173fm0" path="res://gfx/font/m3x6.ttf" id="3_u2dne"]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_w2oqd")
+
+[node name="SpritePivot" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpritePivot" groups=["GunGroup"]]
+position = Vector2(1, -6)
+centered = false
+
+[node name="ShootPoint" type="Node2D" parent="."]
+position = Vector2(27, -3)
+script = ExtResource("3_6c2ci")
+
+[node name="AmmoCounter" type="Node2D" parent="."]
+position = Vector2(24, -11)
+metadata/_edit_group_ = true
+
+[node name="Ammo" type="RichTextLabel" parent="AmmoCounter"]
+layout_direction = 2
+offset_left = -8.0
+offset_top = -7.0
+offset_right = 8.0
+offset_bottom = 6.0
+theme_override_fonts/normal_font = ExtResource("3_u2dne")
+bbcode_enabled = true
+fit_content = true
+metadata/_edit_use_anchors_ = true

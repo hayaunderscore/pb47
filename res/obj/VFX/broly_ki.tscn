@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxruis3cspjtu"]
+
+[ext_resource type="Script" path="res://scripts/efx/broly_ki.gd" id="1_ckqxq"]
+[ext_resource type="Shader" path="res://res/shaders/broly_ki.gdshader" id="1_duyrx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t84j0"]
+shader = ExtResource("1_duyrx")
+
+[node name="BrolyKi" type="Node2D"]
+z_index = 2048
+material = SubResource("ShaderMaterial_t84j0")
+script = ExtResource("1_ckqxq")
+filled = true

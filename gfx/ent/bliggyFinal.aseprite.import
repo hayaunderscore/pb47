@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dbt1g1vhougpq"
+path="res://.godot/imported/bliggyFinal.aseprite-9c5d120bf79109f5e045556ec0bc9fab.res"
+
+[deps]
+
+source_file="res://gfx/ent/bliggyFinal.aseprite"
+dest_files=["res://.godot/imported/bliggyFinal.aseprite-9c5d120bf79109f5e045556ec0bc9fab.res"]
+
+[params]
+

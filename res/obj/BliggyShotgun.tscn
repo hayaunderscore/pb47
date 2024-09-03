@@ -1,0 +1,94 @@
+[gd_scene load_steps=16 format=3 uid="uid://cb8efme6e53ew"]
+
+[ext_resource type="Script" path="res://scripts/ent/gun.gd" id="1_ejbi8"]
+[ext_resource type="Texture2D" uid="uid://cuh5whpmcfwg8" path="res://gfx/caret/guns.png" id="2_sm42i"]
+[ext_resource type="Script" path="res://addons/projectiles_plugin/2d/patterns/pattern_shooter2d.gd" id="2_x3o47"]
+[ext_resource type="Script" path="res://addons/projectiles_plugin/2d/patterns/pattern_elem2d.gd" id="4_fq3uh"]
+[ext_resource type="PackedScene" uid="uid://dc3ckrmnv65o6" path="res://res/obj/Bullets/ShotgunBullet.tscn" id="5_rhcm4"]
+[ext_resource type="Script" path="res://addons/projectiles_plugin/2d/trajectories/linear_trajectory2d.gd" id="6_bvcye"]
+[ext_resource type="Script" path="res://addons/projectiles_plugin/2d/patterns/pattern2d.gd" id="7_1neva"]
+[ext_resource type="FontFile" uid="uid://b8jlvkt173fm0" path="res://gfx/font/m3x6.ttf" id="8_wgxdp"]
+
+[sub_resource type="Resource" id="Resource_ptdfo"]
+script = ExtResource("6_bvcye")
+
+[sub_resource type="Resource" id="Resource_4jgbk"]
+script = ExtResource("4_fq3uh")
+projectile = ExtResource("5_rhcm4")
+position = Vector2(0, 0)
+angle = -3.0
+trajectory = SubResource("Resource_ptdfo")
+speed = 600.0
+range = 1024.0
+spawn_delay = 0.0
+travel_delay = 0.0
+rand_spread = 0.0
+target_group = ""
+
+[sub_resource type="Resource" id="Resource_efxej"]
+script = ExtResource("6_bvcye")
+
+[sub_resource type="Resource" id="Resource_yt86a"]
+script = ExtResource("4_fq3uh")
+projectile = ExtResource("5_rhcm4")
+position = Vector2(0, 0)
+angle = 0.0
+trajectory = SubResource("Resource_efxej")
+speed = 600.0
+range = 1024.0
+spawn_delay = 0.0
+travel_delay = 0.0
+rand_spread = 0.0
+target_group = ""
+
+[sub_resource type="Resource" id="Resource_oh36w"]
+script = ExtResource("6_bvcye")
+
+[sub_resource type="Resource" id="Resource_5octt"]
+script = ExtResource("4_fq3uh")
+projectile = ExtResource("5_rhcm4")
+position = Vector2(0, 0)
+angle = 3.0
+trajectory = SubResource("Resource_oh36w")
+speed = 600.0
+range = 1024.0
+spawn_delay = 0.0
+travel_delay = 0.0
+rand_spread = 0.0
+target_group = ""
+
+[sub_resource type="Resource" id="Resource_os5h6"]
+script = ExtResource("7_1neva")
+data = Array[ExtResource("4_fq3uh")]([SubResource("Resource_4jgbk"), SubResource("Resource_yt86a"), SubResource("Resource_5octt")])
+
+[node name="Shotgun" type="Node2D"]
+script = ExtResource("1_ejbi8")
+
+[node name="SpritePivot" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpritePivot" groups=["GunGroup"]]
+position = Vector2(1, -6)
+texture = ExtResource("2_sm42i")
+centered = false
+region_enabled = true
+region_rect = Rect2(10, 23, 31, 12)
+
+[node name="ShootPoint" type="Node2D" parent="."]
+position = Vector2(27, -3)
+script = ExtResource("2_x3o47")
+pattern = SubResource("Resource_os5h6")
+
+[node name="AmmoCounter" type="Node2D" parent="."]
+position = Vector2(24, -11)
+metadata/_edit_group_ = true
+
+[node name="Ammo" type="RichTextLabel" parent="AmmoCounter"]
+layout_direction = 2
+offset_left = -8.0
+offset_top = -7.0
+offset_right = 8.0
+offset_bottom = 6.0
+theme_override_fonts/normal_font = ExtResource("8_wgxdp")
+bbcode_enabled = true
+fit_content = true
+metadata/_edit_use_anchors_ = true

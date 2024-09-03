@@ -1,0 +1,276 @@
+[gd_scene load_steps=19 format=3 uid="uid://dwx7fypcrsntl"]
+
+[ext_resource type="Script" path="res://scripts/ent/bliggy.gd" id="1_y7nhe"]
+[ext_resource type="PackedScene" uid="uid://cesjt2b6pstuk" path="res://res/obj/BliggyMachinegun.tscn" id="2_1ggri"]
+[ext_resource type="Texture2D" uid="uid://7eax1fogoi0f" path="res://gfx/ent/bliggyFinal.png" id="2_rdp1g"]
+[ext_resource type="PackedScene" uid="uid://cb8efme6e53ew" path="res://res/obj/BliggyShotgun.tscn" id="3_j5ey0"]
+[ext_resource type="PackedScene" uid="uid://cagn8w5h7xnnm" path="res://res/obj/BliggyRevolver.tscn" id="4_naw88"]
+[ext_resource type="AudioStream" uid="uid://clb5iajuj7unu" path="res://sfx/switchWeapon.wav" id="5_du02u"]
+[ext_resource type="AudioStream" uid="uid://iwt1a0n2vk5m" path="res://sfx/shotgunOld.wav" id="6_lorme"]
+[ext_resource type="PackedScene" uid="uid://duv6e1ggout2v" path="res://components/health.tscn" id="8_5pm54"]
+[ext_resource type="PackedScene" uid="uid://4pflw7xx7eql" path="res://components/hitbox.tscn" id="9_08do3"]
+[ext_resource type="PackedScene" uid="uid://bkjxmmnxr2ah0" path="res://components/hitstop.tscn" id="10_a7rfc"]
+
+[sub_resource type="Animation" id="Animation_w0oye"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_n6uw6"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [9]
+}
+
+[sub_resource type="Animation" id="Animation_y6viy"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+
+[sub_resource type="Animation" id="Animation_aa7or"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_f8n5i"]
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d3fu4"]
+_data = {
+"Airborne": SubResource("Animation_w0oye"),
+"Dead": SubResource("Animation_n6uw6"),
+"Hurt": SubResource("Animation_y6viy"),
+"Idle": SubResource("Animation_aa7or"),
+"Walk": SubResource("Animation_f8n5i")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g6kjs"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y1rbj"]
+size = Vector2(24, 40)
+
+[node name="Bliggy" type="CharacterBody2D"]
+collision_layer = 2
+floor_constant_speed = true
+floor_max_angle = 1.16937
+floor_snap_length = 8.0
+script = ExtResource("1_y7nhe")
+defaultGuns = Array[PackedScene]([ExtResource("3_j5ey0"), ExtResource("2_1ggri"), ExtResource("4_naw88")])
+
+[node name="SpritePivot" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpritePivot"]
+light_mask = 0
+texture_filter = 1
+position = Vector2(-27.5, -48)
+texture = ExtResource("2_rdp1g")
+centered = false
+hframes = 4
+vframes = 3
+frame = 7
+metadata/_aseprite_wizard_config_ = {
+"i_mode": 0,
+"keep_anim_length": false,
+"layer": "",
+"o_ex_p": "",
+"o_folder": "res://gfx/ent",
+"o_name": "",
+"only_visible": false,
+"player": "AnimationPlayer",
+"slice": "",
+"source": "res://gfx/ent/bliggyFinal.aseprite"
+}
+metadata/_aseprite_wizard_source_file_hash_ = "6a30f6f725326ab0cf78fc34d930b71e"
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": false,
+"layer_section": false,
+"output_section": true,
+"slice_section": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d3fu4")
+}
+autoplay = "Idle"
+
+[node name="GunPivot" type="Node2D" parent="."]
+light_mask = 0
+z_index = 101
+position = Vector2(0, -10)
+
+[node name="RecoilCheckLeft" type="RayCast2D" parent="."]
+position = Vector2(0, -20)
+target_position = Vector2(-44, 0)
+
+[node name="RecoilCheckRight" type="RayCast2D" parent="."]
+position = Vector2(0, -20)
+target_position = Vector2(44, 0)
+
+[node name="SwitchSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_du02u")
+volume_db = 5.0
+
+[node name="GunSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_lorme")
+
+[node name="WileTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("8_5pm54")]
+default_health = 4
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("9_08do3")]
+collision_layer = 4
+collision_mask = 0
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_g6kjs")
+
+[node name="IFrames" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="SlopeCheck" type="Node2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="RecoilCheckDown" type="RayCast2D" parent="SlopeCheck"]
+position = Vector2(16, 0)
+target_position = Vector2(0, 36)
+
+[node name="FlatCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_y1rbj")
+
+[node name="SlopeCollision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-12, -40, 12, -40, 12, -20, 0, 0, -12, -20)
+disabled = true
+
+[node name="LedgeCheck" type="RayCast2D" parent="."]
+target_position = Vector2(0, 24)
+
+[node name="HitstopComponent" parent="." instance=ExtResource("10_a7rfc")]

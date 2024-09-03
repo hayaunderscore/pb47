@@ -1,0 +1,118 @@
+[gd_scene load_steps=14 format=3 uid="uid://bgw2327r280gd"]
+
+[ext_resource type="Script" path="res://scripts/ent/checkpoint.gd" id="1_yl2up"]
+[ext_resource type="Texture2D" uid="uid://ddf5d11aloifq" path="res://gfx/ent/misc/rie-Sheet.png" id="2_udv00"]
+[ext_resource type="PackedScene" uid="uid://4pflw7xx7eql" path="res://components/hitbox.tscn" id="3_x3gg1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7r8j4"]
+atlas = ExtResource("2_udv00")
+region = Rect2(0, 0, 55, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m23bx"]
+atlas = ExtResource("2_udv00")
+region = Rect2(55, 0, 55, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rerak"]
+atlas = ExtResource("2_udv00")
+region = Rect2(165, 0, 55, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rufmj"]
+atlas = ExtResource("2_udv00")
+region = Rect2(220, 0, 55, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slhhf"]
+atlas = ExtResource("2_udv00")
+region = Rect2(110, 0, 55, 55)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7c5xd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7r8j4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m23bx")
+}],
+"loop": true,
+"name": &"BuriedIdle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rerak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rufmj")
+}],
+"loop": true,
+"name": &"RieIdle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slhhf")
+}],
+"loop": true,
+"name": &"RiePeek",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8tv4y"]
+size = Vector2(24, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xnbpq"]
+size = Vector2(40, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6vhif"]
+size = Vector2(128, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ywre"]
+size = Vector2(192, 128)
+
+[node name="Spikes" type="CharacterBody2D"]
+position = Vector2(0, 16)
+collision_layer = 16
+script = ExtResource("1_yl2up")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -100
+position = Vector2(0, -28)
+sprite_frames = SubResource("SpriteFrames_7c5xd")
+animation = &"BuriedIdle"
+autoplay = "BuriedIdle"
+frame_progress = 0.349943
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_8tv4y")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("3_x3gg1")]
+collision_layer = 32
+collision_mask = 4
+automatically_deplete_health = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_xnbpq")
+
+[node name="FullPeek" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FullPeek"]
+position = Vector2(0, -48)
+shape = SubResource("RectangleShape2D_6vhif")
+
+[node name="SemiPeek" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+collision_priority = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SemiPeek"]
+position = Vector2(0, -64)
+shape = SubResource("RectangleShape2D_7ywre")
+
+[connection signal="area_entered" from="FullPeek" to="." method="_on_full_peek_area_entered"]
+[connection signal="area_exited" from="FullPeek" to="." method="_on_full_peek_area_exited"]
+[connection signal="area_entered" from="SemiPeek" to="." method="_on_semi_peek_area_entered"]
+[connection signal="area_exited" from="SemiPeek" to="." method="_on_semi_peek_area_exited"]
