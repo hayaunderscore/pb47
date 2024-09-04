@@ -316,7 +316,7 @@ metadata/_aseprite_wizard_config_ = {
 "slice": "",
 "source": "res://gfx/ent/bliggyFinal.aseprite"
 }
-metadata/_aseprite_wizard_source_file_hash_ = "162ec8d15080a25482add47b26fc2688"
+metadata/_aseprite_wizard_source_file_hash_ = "f88d9d81b0cea1f271c28607cabeb7a3"
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
 "layer_section": false,
@@ -381,6 +381,11 @@ position = Vector2(0, -20)
 position = Vector2(16, 0)
 target_position = Vector2(0, 36)
 
+[node name="LedgeCheck" type="RayCast2D" parent="SlopeCheck"]
+position = Vector2(0, 20)
+target_position = Vector2(0, 16)
+hit_from_inside = true
+
 [node name="FlatCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_y1rbj")
@@ -398,8 +403,3 @@ collision_mask = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SlopeCheck2"]
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_th74x")
-
-[node name="LedgeCheck" type="RayCast2D" parent="."]
-position = Vector2(4, 0)
-target_position = Vector2(0, 16)
-hit_from_inside = true

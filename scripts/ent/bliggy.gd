@@ -23,7 +23,7 @@ class_name Bliggy
 @onready var recoilCheckRight: RayCast2D = $RecoilCheckRight
 @onready var slopeNormal: Node2D = $SlopeCheck
 @onready var slopeColArea: Area2D = $SlopeCheck2
-@onready var ledgeCheck: RayCast2D = $LedgeCheck
+@onready var ledgeCheck: RayCast2D = $SlopeCheck/LedgeCheck
 
 @export var hud: HeadsUpDisplay
 @onready var brolyki: PackedScene = preload("res://res/obj/VFX/broly_ki.tscn")
