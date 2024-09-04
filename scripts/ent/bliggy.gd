@@ -22,7 +22,8 @@ class_name Bliggy
 @onready var recoilCheckLeft: RayCast2D = $RecoilCheckLeft
 @onready var recoilCheckRight: RayCast2D = $RecoilCheckRight
 @onready var slopeNormal: Node2D = $SlopeCheck
-@onready var ledgeRay: RayCast2D = $LedgeCheck
+@onready var slopeColArea: Area2D = $SlopeCheck2
+@onready var ledgeCheck: RayCast2D = $LedgeCheck
 
 @export var hud: HeadsUpDisplay
 @onready var brolyki: PackedScene = preload("res://res/obj/VFX/broly_ki.tscn")
@@ -64,24 +65,17 @@ var last_velocity: Vector2
 const SOFTCOL_MOVE_AMOUNT = 12
 const SOFTCOL_MOVE_AMOUNT_MIDDLE = 9
 
-func move_according_to_softcol(delta):
-	if not is_on_ceiling(): return
-	if $SoftCol1.is_colliding() and $SoftCol2.is_colliding() and $SoftCol3.is_colliding(): return
-	if not $SoftCol1.is_colliding() && $SoftCol2.get_collision_normal() == Vector2.DOWN:
-		global_position.x = $SoftCol1.global_position.x + SOFTCOL_MOVE_AMOUNT
-		if test_move(transform, velocity * delta):
-			global_position.x = $SoftCol1.global_position.x - SOFTCOL_MOVE_AMOUNT
-		velocity = last_velocity
-	elif not $SoftCol2.is_colliding() && $SoftCol1.get_collision_normal() == Vector2.DOWN:
-		global_position.x = $SoftCol2.global_position.x + SOFTCOL_MOVE_AMOUNT_MIDDLE
-		if test_move(transform, velocity * delta):
-			global_position.x = $SoftCol2.global_position.x - SOFTCOL_MOVE_AMOUNT_MIDDLE
-		velocity = last_velocity
-	elif not $SoftCol3.is_colliding() && $SoftCol1.get_collision_normal() == Vector2.DOWN:
-		global_position.x = $SoftCol3.global_position.x + SOFTCOL_MOVE_AMOUNT
-		if test_move(transform, velocity * delta):
-			global_position.x = $SoftCol3.global_position.x - SOFTCOL_MOVE_AMOUNT
-		velocity = last_velocity
+func attempt_correction(amount: int):
+	var delta = get_physics_process_delta_time()
+	if velocity.y < 0 and test_move(global_transform,
+	Vector2(0, velocity.y*delta)):
+		for i in range(1, amount*2+1):
+			for j in [-1.0, 1.0]:
+				if !test_move(global_transform.translated(Vector2(i*j/2, 0)),
+				Vector2(0, velocity.y*delta)):
+					translate(Vector2(i*j/2, 0))
+					if velocity.x * j < 0: velocity.x = 0
+					return
 
 func _ready() -> void:
 	for scene in defaultGuns:
@@ -117,8 +111,9 @@ func _physics_process(delta: float) -> void:
 		
 	if not iframes.is_stopped() and (floori(iframes.time_left*30) % 2 == 0):
 		visible = !visible
-		
-	col.disabled = ledgeRay.is_colliding()
+	
+	# Switch to a different collision body when we're supposed to be on a slope.
+	col.disabled = slopeColArea.has_overlapping_bodies()
 	colPointy.disabled = !col.disabled
 	
 	var prefix: String = ""
@@ -147,7 +142,10 @@ func _physics_process(delta: float) -> void:
 		anim.seek(last)
 	else:
 		velocity.x = move_toward(velocity.x, 0, DECELERATION)
-		anim.play(prefix + "Idle")
+		if not ledgeCheck.is_colliding():
+			anim.play("Ledge")
+		else:
+			anim.play(prefix + "Idle")
 	faceLerp = lerpf(faceLerp, facing, 0.3)
 	if faceLerp > 0.25 or faceLerp < -0.25:
 		spritePivot.scale.x = faceLerp
@@ -246,9 +244,8 @@ func _physics_process(delta: float) -> void:
 			phantomCamera.follow_offset.y = lerp(phantomCamera.follow_offset.y, 0.0, abs(velocity.y)/MAX_SPEED*2/30)
 
 	last_floor = is_on_floor()
-	last_velocity = velocity
+	attempt_correction(12)
 	move_and_slide()
-	move_according_to_softcol(delta)
 	
 func add_gun(gun: BliggyGun):
 	gun.player = self

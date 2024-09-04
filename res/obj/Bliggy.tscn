@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dwx7fypcrsntl"]
+[gd_scene load_steps=24 format=3 uid="uid://dwx7fypcrsntl"]
 
 [ext_resource type="Script" path="res://scripts/ent/bliggy.gd" id="1_y7nhe"]
 [ext_resource type="PackedScene" uid="uid://cesjt2b6pstuk" path="res://res/obj/BliggyMachinegun.tscn" id="2_1ggri"]
@@ -39,6 +39,34 @@ tracks/1/keys = {
 "values": [7]
 }
 
+[sub_resource type="Animation" id="Animation_3ntce"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
 [sub_resource type="Animation" id="Animation_n6uw6"]
 length = 0.1
 loop_mode = 1
@@ -65,6 +93,62 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [9]
+}
+
+[sub_resource type="Animation" id="Animation_aaec8"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+
+[sub_resource type="Animation" id="Animation_1gp53"]
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
 }
 
 [sub_resource type="Animation" id="Animation_y6viy"]
@@ -151,8 +235,8 @@ tracks/1/keys = {
 "values": [1, 2, 3, 4, 5, 6]
 }
 
-[sub_resource type="Animation" id="Animation_3ntce"]
-length = 0.1
+[sub_resource type="Animation" id="Animation_268g4"]
+length = 0.8
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -173,66 +257,10 @@ tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = false
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [10]
-}
-
-[sub_resource type="Animation" id="Animation_aaec8"]
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [11]
-}
-
-[sub_resource type="Animation" id="Animation_1gp53"]
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [12, 13, 14, 15, 16, 17]
+"values": [18, 19]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_d3fu4"]
@@ -244,6 +272,7 @@ _data = {
 "EvilWalk": SubResource("Animation_1gp53"),
 "Hurt": SubResource("Animation_y6viy"),
 "Idle": SubResource("Animation_aa7or"),
+"Ledge": SubResource("Animation_268g4"),
 "Walk": SubResource("Animation_f8n5i")
 }
 
@@ -252,6 +281,9 @@ size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y1rbj"]
 size = Vector2(24, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_th74x"]
+size = Vector2(32, 24)
 
 [node name="Bliggy" type="CharacterBody2D"]
 collision_layer = 2
@@ -284,7 +316,7 @@ metadata/_aseprite_wizard_config_ = {
 "slice": "",
 "source": "res://gfx/ent/bliggyFinal.aseprite"
 }
-metadata/_aseprite_wizard_source_file_hash_ = "48cbf9bdb491c95066d57e68574a2bbb"
+metadata/_aseprite_wizard_source_file_hash_ = "162ec8d15080a25482add47b26fc2688"
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
 "layer_section": false,
@@ -357,19 +389,17 @@ shape = SubResource("RectangleShape2D_y1rbj")
 polygon = PackedVector2Array(-12, -40, 12, -40, 12, -20, 0, 0, -12, -20)
 disabled = true
 
-[node name="LedgeCheck" type="RayCast2D" parent="."]
-target_position = Vector2(0, 24)
-
 [node name="HitstopComponent" parent="." instance=ExtResource("10_a7rfc")]
 
-[node name="SoftCol1" type="RayCast2D" parent="."]
-position = Vector2(-12, -40)
-target_position = Vector2(0, -8)
+[node name="SlopeCheck2" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 64
 
-[node name="SoftCol2" type="RayCast2D" parent="."]
-position = Vector2(0, -40)
-target_position = Vector2(0, -8)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlopeCheck2"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_th74x")
 
-[node name="SoftCol3" type="RayCast2D" parent="."]
-position = Vector2(12, -40)
-target_position = Vector2(0, -8)
+[node name="LedgeCheck" type="RayCast2D" parent="."]
+position = Vector2(4, 0)
+target_position = Vector2(0, 16)
+hit_from_inside = true

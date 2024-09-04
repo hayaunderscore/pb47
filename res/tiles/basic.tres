@@ -507,12 +507,9 @@ texture_region_size = Vector2i(32, 32)
 }
 0:4/0 = 0
 0:4/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_13ctu")
-0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 16, 16, 0, 16, 16)
-1:4/0 = 0
-1:4/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_t2juk")
-1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 0, 16, -16, 16, 16, -16, 16)
+0:4/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, 16, 16, 0, 16, 16)
 2:4/0 = 0
-2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 16, 16, -16, 16, 16)
+2:4/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, 16, 16, -16, 16, 16)
 3:4/0 = 0
 4:4/0 = 0
 4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -8, -16, -16, 16, -16, 16, -8)
@@ -523,6 +520,9 @@ texture_region_size = Vector2i(32, 32)
 6:4/0 = 0
 6:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, -8, -16, -8)
 6:4/0/physics_layer_0/polygon_0/one_way = true
+1:4/0 = 0
+1:4/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_t2juk")
+1:4/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, 0, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_p8eng"]
 scenes/1/scene = ExtResource("3_iayxf")
@@ -1536,6 +1536,8 @@ tile_size = Vector2i(32, 32)
 occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
+physics_layer_1/collision_layer = 65
+physics_layer_1/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_uq0of")
 sources/1 = SubResource("TileSetAtlasSource_p82dq")
 sources/2 = SubResource("TileSetScenesCollectionSource_p8eng")

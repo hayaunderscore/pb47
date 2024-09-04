@@ -92,7 +92,7 @@ func load_level_final(progress):
 func load_level_screen(delta):
 	var progress = []
 	ResourceLoader.load_threaded_get_status(target_scene, progress)
-	if progress[0] == 1:
+	if ResourceLoader.load_threaded_get_status(target_scene) == ResourceLoader.THREAD_LOAD_LOADED:
 		load_level_final(progress)
 	else:
 		loading_instance.get_node("Label").text = "loading.... %03d%%" % (progress[0]*100)

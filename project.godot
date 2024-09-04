@@ -87,6 +87,7 @@ switch_right={
 2d_physics/layer_4="Player Bullets"
 2d_physics/layer_5="Enemy Collision"
 2d_physics/layer_6="Enemy Hitbox"
+2d_physics/layer_7="Tile Slopes"
 
 [physics]
 

@@ -12,6 +12,7 @@ func _ready() -> void:
 	deadHeart.visible = false
 
 func health_set(heal: int):
+	heal = max(0, heal)
 	# Yeah this is easier
 	health.region_rect.position.x = (4 - heal) * 107
 	deadHeart.global_position.x = 35 + 24 * heal

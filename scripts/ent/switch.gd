@@ -21,7 +21,8 @@ func _process(delta: float) -> void:
 
 func death(who: Node2D):
 	if Engine.is_editor_hint(): return
-	Globals.hitstop(self)
+	Globals.hitstop(who, 0.3)
+	Globals.hitstop(self, 0.3)
 	Globals.spawn_explosion(self, 1)
 	hitbox.queue_free()
 	await $HitstopComponent/Timer.timeout
