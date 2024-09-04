@@ -128,7 +128,7 @@ func _physics_process(delta: float) -> void:
 			if guns[currentGun].gunCooldown > (2.0-0.2):
 				prefix = "Evil"
 	
-	var axis: float = Input.get_axis("ui_left", "ui_right")
+	var axis: float = round(Input.get_axis("left", "right"))
 	if axis:
 		if abs(velocity.x) > MAX_SPEED && axis != facing:
 			velocity.x = move_toward(velocity.x, MAX_SPEED * axis, ACCELERATION)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://clmnadmnyxhv"]
+[gd_scene load_steps=11 format=3 uid="uid://clmnadmnyxhv"]
 
 [ext_resource type="Texture2D" uid="uid://deb473kwkjrv0" path="res://gfx/hud/heartslmao.png" id="1_8bwin"]
 [ext_resource type="Script" path="res://scripts/efx/hud.gd" id="1_i6sqq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://0np5y5jb1etn" path="res://gfx/hud/ammocount-Sheet.png" id="5_1t41g"]
 [ext_resource type="Material" uid="uid://myhl0hlrk6wo" path="res://res/genericwhiteoutline.tres" id="5_onuey"]
 [ext_resource type="FontVariation" uid="uid://caeduth1rv32r" path="res://gfx/font/numbers.tres" id="8_ga6y4"]
+[ext_resource type="Script" path="res://addons/virtual_joystick/virtual_joystick_instantiator.gd" id="9_eh64f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oekeg"]
 animations = [{
@@ -97,3 +98,17 @@ grow_horizontal = 0
 theme_override_fonts/normal_font = ExtResource("8_ga6y4")
 bbcode_enabled = true
 text = "[right]00:01:00[/right]"
+
+[node name="Virtual Joystick" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+script = ExtResource("9_eh64f")
