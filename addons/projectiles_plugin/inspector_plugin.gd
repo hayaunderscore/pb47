@@ -1,8 +1,6 @@
 @tool
 extends EditorInspectorPlugin
 
-@export var editor_plugin: EditorPlugin
-
 signal pattern_selected(pattern: Pattern2D)
 
 

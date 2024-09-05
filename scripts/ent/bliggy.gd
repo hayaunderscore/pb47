@@ -65,6 +65,8 @@ var last_velocity: Vector2
 const SOFTCOL_MOVE_AMOUNT = 12
 const SOFTCOL_MOVE_AMOUNT_MIDDLE = 9
 
+var active: bool = true
+
 func attempt_correction(amount: int):
 	var delta = get_physics_process_delta_time()
 	if velocity.y < 0 and test_move(global_transform,

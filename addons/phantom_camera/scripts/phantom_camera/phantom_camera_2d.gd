@@ -370,7 +370,7 @@ var _limit_sides_default: Vector4i = Vector4i(-10000000, -10000000, 10000000, 10
 ## [b]CollisionShape2D[/b][br]
 ## The limit will update in realtime as the Shape2D changes its size.
 ## Note: For performance reasons, resizing the [Shape2D] during runtime will not change the Limits sides.
-@export_node_path("TileMap", "CollisionShape2D") var limit_target = NodePath(""):
+@export_node_path("TileMap", "TileMapLayer", "CollisionShape2D") var limit_target = NodePath(""):
 	set = set_limit_target,
 	get = get_limit_target
 var _limit_node: Node2D
@@ -760,6 +760,25 @@ func update_limit_all_sides() -> void:
 		_limit_sides.w = limit_bottom
 	elif _limit_node is TileMap:
 		var tile_map: TileMap = _limit_node as TileMap
+		var tile_map_size: Vector2 = Vector2(tile_map.get_used_rect().size) * Vector2(tile_map.tile_set.tile_size) * tile_map.get_scale()
+		var tile_map_position: Vector2 = tile_map.global_position + Vector2(tile_map.get_used_rect().position) * Vector2(tile_map.tile_set.tile_size) * tile_map.get_scale()
+
+		## Calculates the Rect2 based on the Tile Map position and size + margin
+		limit_rect = Rect2(
+			tile_map_position + Vector2(limit_margin.x, limit_margin.y),
+			tile_map_size - Vector2(limit_margin.x, limit_margin.y) - Vector2(limit_margin.z, limit_margin.w)
+		)
+
+		# Left
+		_limit_sides.x = roundi(limit_rect.position.x)
+		# Top
+		_limit_sides.y = roundi(limit_rect.position.y)
+		# Right
+		_limit_sides.z = roundi(limit_rect.position.x + limit_rect.size.x)
+		# Bottom
+		_limit_sides.w = roundi(limit_rect.position.y + limit_rect.size.y)
+	elif _limit_node is TileMapLayer:
+		var tile_map: TileMapLayer = _limit_node as TileMapLayer
 		var tile_map_size: Vector2 = Vector2(tile_map.get_used_rect().size) * Vector2(tile_map.tile_set.tile_size) * tile_map.get_scale()
 		var tile_map_position: Vector2 = tile_map.global_position + Vector2(tile_map.get_used_rect().position) * Vector2(tile_map.tile_set.tile_size) * tile_map.get_scale()
 
@@ -1243,11 +1262,11 @@ func set_limit_target(value: NodePath) -> void:
 		var prev_limit_node: Node2D = _limit_node
 		var new_limit_node: Node2D = get_node(value)
 
-		if prev_limit_node is TileMap:
+		if prev_limit_node is TileMap or prev_limit_node is TileMapLayer:
 			if prev_limit_node.changed.is_connected(_on_tile_map_changed):
 				prev_limit_node.changed.disconnect(_on_tile_map_changed)
 
-		if new_limit_node is TileMap:
+		if new_limit_node is TileMap or new_limit_node is TileMapLayer:
 			if not new_limit_node.changed.is_connected(_on_tile_map_changed):
 				new_limit_node.changed.connect(_on_tile_map_changed)
 		elif new_limit_node is CollisionShape2D:
