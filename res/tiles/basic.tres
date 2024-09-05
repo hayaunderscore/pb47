@@ -514,12 +514,25 @@ texture_region_size = Vector2i(32, 32)
 4:4/0 = 0
 4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -8, -16, -16, 16, -16, 16, -8)
 4:4/0/physics_layer_0/polygon_0/one_way = true
+4:4/0/metadata/_better_terrain = {
+0: [3],
+"type": 3
+}
 5:4/0 = 0
 5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, -8, -16, -8)
 5:4/0/physics_layer_0/polygon_0/one_way = true
+5:4/0/metadata/_better_terrain = {
+0: [3],
+8: [3],
+"type": 3
+}
 6:4/0 = 0
 6:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, -8, -16, -8)
 6:4/0/physics_layer_0/polygon_0/one_way = true
+6:4/0/metadata/_better_terrain = {
+8: [3],
+"type": 3
+}
 1:4/0 = 0
 1:4/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_t2juk")
 1:4/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, 0, 16, -16, 16, 16, -16, 16)
@@ -1553,6 +1566,8 @@ metadata/_better_terrain = {
 }], ["Inside", Color(0.297197, 0.431165, 0.956727, 1), 0, [], {
 "path": ""
 }], ["Outside", Color(0.60814, 0.350642, 0.984483, 1), 0, [], {
+"path": ""
+}], ["PassThrough", Color(0.9755, 0.515243, 0.902886, 1), 0, [], {
 "path": ""
 }]],
 "version": "0.2"

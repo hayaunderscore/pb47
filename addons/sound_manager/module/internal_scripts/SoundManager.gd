@@ -473,7 +473,11 @@ func preload_resource_from_string(file : String) -> void:
 				print_debug("Audio File not found in Dictionary")
 			return
 	
-	res = load(file_name)
+	if file.get_extension() == "ogg" and not (file.contains("user://") or file.contains("res://")):
+		res = AudioStreamOggVorbis.load_from_file(file)
+		res.loop = true
+	else:
+		res = ResourceLoader.load(file_name)
 	
 	if res:
 		Preloaded_Resources[file_name] = res

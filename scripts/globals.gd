@@ -94,3 +94,53 @@ func hitstop(node: Node2D, duration: float = -1):
 		comp.hit_stop()
 		if duration > 0: comp.timer.wait_time = old_stop
 		SoundManager.play_sfx("res://sfx/hitstop.ogg", 0.0, -10)
+
+func load_ogg_runtime(path: String) -> AudioStreamOggVorbis:
+	var f = FileAccess.open(path, FileAccess.READ)
+	if not f: return null
+	var data = f.get_buffer(f.get_length())
+	f.close()
+	var info = parse_ogg(data)
+	var vorbis = AudioStreamOggVorbis.load_from_file(path)
+	vorbis.loop = true
+	if info.has("loop_start"):
+		vorbis.loop_offset = float(info["loop_start"])
+	return vorbis
+
+func load_and_return_data_ogg(path: String) -> Dictionary:
+	var f = FileAccess.open(path, FileAccess.READ)
+	if not f: return {}
+	var data = f.get_buffer(f.get_length())
+	f.close()
+	var info = parse_ogg(data)
+	return {
+		"path": path,
+		"info": info,
+	}
+
+func parse_ogg(data: PackedByteArray):
+	var info = { error = null }
+	# Locate the comments header, it is where the second "vorbis" octet stream occurs
+	var hex = data.slice(0, 0x100).hex_encode()
+	var idx = hex.find("766f72626973")
+	if idx > 0:
+		idx = hex.find("766f72626973", idx + 6) / 2 + 6
+		# Let's just use the 1st byte of the 32-bit length values for the length
+		# Skip over vendor_string
+		idx += data[idx] + 4
+		var num_comments = data[idx]
+		idx += 4
+		for n in num_comments:
+			var comment_length = data[idx]
+			idx += 4
+			var comment = data.slice(idx, idx + comment_length - 1).get_string_from_utf8()
+			var tag_val = comment.split("=")
+			if tag_val.size() == 2:
+				var tag = tag_val[0].to_lower()
+				match tag:
+					"artist":
+						info["band"] = tag_val[1]
+					_:
+						info[tag] = tag_val[1]
+			idx += comment_length
+	return info
