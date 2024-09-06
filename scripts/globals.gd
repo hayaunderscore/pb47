@@ -95,16 +95,22 @@ func hitstop(node: Node2D, duration: float = -1):
 		if duration > 0: comp.timer.wait_time = old_stop
 		SoundManager.play_sfx("res://sfx/hitstop.ogg", 0.0, -10)
 
+var vorbis_loaded: Dictionary
+
 func load_ogg_runtime(path: String) -> AudioStreamOggVorbis:
 	var f = FileAccess.open(path, FileAccess.READ)
 	if not f: return null
 	var data = f.get_buffer(f.get_length())
 	f.close()
 	var info = parse_ogg(data)
+	# Prevent reloading the same damn ogg file
+	if vorbis_loaded.has(path):
+		return vorbis_loaded[path]
 	var vorbis = AudioStreamOggVorbis.load_from_file(path)
 	vorbis.loop = true
 	if info.has("loop_start"):
 		vorbis.loop_offset = float(info["loop_start"])
+	vorbis_loaded[path] = vorbis
 	return vorbis
 
 func load_and_return_data_ogg(path: String) -> Dictionary:
