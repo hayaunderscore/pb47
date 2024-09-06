@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7jc78ds70mpx"]
+
+[ext_resource type="Script" path="res://scripts/levelbound.gd" id="1_sxd2g"]
+
+[node name="LevelBound" type="Node2D"]
+position = Vector2(-16, -32)
+script = ExtResource("1_sxd2g")

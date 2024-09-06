@@ -1,0 +1,520 @@
+[gd_scene load_steps=22 format=4 uid="uid://df0y4vq1k5h6p"]
+
+[ext_resource type="Script" path="res://scripts/level_editor.gd" id="1_d30mq"]
+[ext_resource type="Texture2D" uid="uid://dwyc3v1fqu5e" path="res://gfx/bg/bg01.png" id="2_7a3eo"]
+[ext_resource type="TileSet" uid="uid://qpcrhhulvt6u" path="res://res/tiles/basic.tres" id="3_wfdmg"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_boc62"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_qgkhr"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_jlo2h"]
+[ext_resource type="Texture2D" uid="uid://ccnyns74fphsp" path="res://gfx/hud/editorIcons.png" id="7_qkmua"]
+[ext_resource type="Texture2D" uid="uid://ddgyswd77j8vg" path="res://gfx/hud/editorcontrols.png" id="8_3sjhv"]
+[ext_resource type="FontFile" uid="uid://b8jlvkt173fm0" path="res://gfx/font/m3x6.ttf" id="10_4hsp5"]
+[ext_resource type="Texture2D" uid="uid://clousqew2n5mh" path="res://gfx/hud/edit.png" id="10_58obf"]
+[ext_resource type="Script" path="res://scripts/efx/movehandlers.gd" id="10_fex0h"]
+[ext_resource type="Script" path="res://scripts/ui/rctpanel.gd" id="10_fpnf7"]
+
+[sub_resource type="Resource" id="Resource_dwntm"]
+script = ExtResource("6_jlo2h")
+duration = 0.5
+transition = 1
+ease = 2
+
+[sub_resource type="Gradient" id="Gradient_s6typ"]
+colors = PackedColorArray(1, 1, 1, 0.376471, 1, 1, 1, 0.376471)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2i6qa"]
+gradient = SubResource("Gradient_s6typ")
+width = 32
+height = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k05j6"]
+size = Vector2(32, 32)
+
+[sub_resource type="FontVariation" id="FontVariation_rtsyv"]
+base_font = ExtResource("10_4hsp5")
+
+[sub_resource type="FontVariation" id="FontVariation_oss1v"]
+base_font = ExtResource("10_4hsp5")
+spacing_top = -6
+
+[sub_resource type="Theme" id="Theme_baxaw"]
+default_font = SubResource("FontVariation_oss1v")
+
+[sub_resource type="FontVariation" id="FontVariation_rd7ni"]
+base_font = ExtResource("10_4hsp5")
+spacing_top = -6
+
+[sub_resource type="FontVariation" id="FontVariation_dxk4u"]
+base_font = ExtResource("10_4hsp5")
+spacing_top = -6
+
+[node name="LevelEdit" type="Node2D"]
+script = ExtResource("1_d30mq")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+z_index = -512
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(128, 128)
+autoscroll = Vector2(0, 50)
+repeat_times = 20
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+texture_repeat = 2
+texture = ExtResource("2_7a3eo")
+centered = false
+region_rect = Rect2(0, 0, 10000, 10000)
+
+[node name="Backerground" type="TileMapLayer" parent="."]
+z_index = 100
+position = Vector2(-1, 0)
+tile_set = ExtResource("3_wfdmg")
+rendering_quadrant_size = 32
+
+[node name="Background" type="TileMapLayer" parent="."]
+z_index = 100
+position = Vector2(-1, 0)
+tile_set = ExtResource("3_wfdmg")
+rendering_quadrant_size = 32
+
+[node name="Foreground" type="TileMapLayer" parent="."]
+z_index = 100
+position = Vector2(-1, 0)
+tile_map_data = PackedByteArray("AAAAAAkAAwAIAAAAAAABAAkAAwAKAAAAAAACAAkAAwAKAAAAAAADAAkAAwAKAAAAAAAEAAkAAwAKAAAAAAAFAAkAAwAKAAAAAAAGAAkAAwAKAAAAAAAHAAkAAwAKAAAAAAAIAAkAAwAKAAAAAAAJAAkAAwAKAAAAAAAKAAkAAwAKAAAAAAALAAkAAwAKAAAAAAAMAAkAAwAKAAAAAAANAAkAAwAKAAAAAAAOAAkAAwAKAAAAAAAPAAkAAwAKAAAAAAAQAAkAAwAKAAAAAAARAAkAAwAKAAAAAAASAAkAAwAKAAAAAAATAAkAAwAKAAAAAAATAAoAAwAJAAIAAAASAAoAAwAJAAIAAAARAAoAAwAJAAIAAAAQAAoAAwAJAAIAAAAPAAoAAwAJAAIAAAAOAAoAAwAJAAIAAAANAAoAAwAJAAIAAAAMAAoAAwAJAAIAAAALAAoAAwAJAAIAAAAKAAoAAwAJAAIAAAAJAAoAAwAJAAIAAAAIAAoAAwAJAAIAAAAHAAoAAwAJAAIAAAAGAAoAAwAJAAIAAAAFAAoAAwAJAAIAAAAEAAoAAwAJAAIAAAADAAoAAwAJAAIAAAACAAoAAwAJAAIAAAABAAoAAwAJAAIAAAAAAAoAAwAIAAEAAAAAAAsAAwAIAAMAAAABAAsAAwAJAAMAAAACAAsAAwAJAAMAAAADAAsAAwAJAAMAAAAEAAsAAwAJAAMAAAAFAAsAAwAJAAMAAAAGAAsAAwAJAAMAAAAHAAsAAwAJAAMAAAAIAAsAAwAJAAMAAAAJAAsAAwAJAAMAAAAKAAsAAwAJAAMAAAALAAsAAwAJAAMAAAAMAAsAAwAJAAMAAAANAAsAAwAJAAMAAAAOAAsAAwAJAAMAAAAPAAsAAwAJAAMAAAAQAAsAAwAJAAMAAAARAAsAAwAJAAMAAAASAAsAAwAJAAMAAAATAAsAAwAJAAMAAAADAAIAAwAAAAEAAAADAAMAAwABAAEAAAADAAQAAwAAAAEAAAADAAUAAwAAAAIAAAAFAAIAAwAAAAEAAAAFAAMAAwADAAEAAAAFAAQAAwAAAAEAAAAFAAUAAwAAAAIAAAAEAAMAAwACAAMAAAAHAAMAAwABAAEAAAAHAAIAAwAAAAEAAAAHAAQAAwAAAAEAAAAHAAUAAwABAAIAAAAIAAUAAwACAAMAAAAJAAUAAwADAAMAAAADAAEAAwAAAAAAAAAFAAEAAwAAAAAAAAAIAAEAAwACAAMAAAAJAAEAAwADAAMAAAAHAAEAAwABAAAAAAAIAAMAAwACAAMAAAAJAAMAAwADAAMAAAALAAEAAwAAAAAAAAALAAIAAwAAAAEAAAALAAMAAwAAAAEAAAALAAQAAwAAAAEAAAALAAUAAwABAAIAAAAMAAUAAwACAAMAAAANAAUAAwADAAMAAAAPAAEAAwAAAAAAAAAPAAIAAwAAAAEAAAAPAAMAAwAAAAEAAAAPAAQAAwAAAAEAAAAPAAUAAwABAAIAAAAQAAUAAwACAAMAAAARAAUAAwADAAMAAAATAAIAAwAAAAEAAAATAAEAAwABAAAAAAAUAAEAAwACAAMAAAAVAAEAAwADAAAAAAAVAAIAAwAAAAEAAAAVAAMAAwAAAAEAAAAVAAQAAwAAAAEAAAAVAAUAAwADAAIAAAAUAAUAAwACAAMAAAATAAUAAwABAAIAAAATAAQAAwAAAAEAAAATAAMAAwAAAAEAAAAUAAkAAwAKAAAAAAAVAAkAAwAKAAAAAAAWAAkAAwAKAAAAAAAXAAkAAwAKAAAAAAAXAAoAAwAJAAIAAAAXAAsAAwAJAAMAAAAWAAsAAwAJAAMAAAAVAAsAAwAJAAMAAAAUAAsAAwAJAAMAAAAUAAoAAwAJAAIAAAAVAAoAAwAJAAIAAAAWAAoAAwAJAAIAAAAXAAUAAwAAAAAAAAAXAAYAAwAAAAIAAAAbAAEAAwAAAAAAAAAbAAIAAwAAAAEAAAAbAAMAAwAAAAEAAAAbAAQAAwAAAAIAAAAdAAMAAwAAAAEAAAAdAAQAAwAAAAIAAAAcAAUAAwAAAAMAAAAeAAUAAwAAAAMAAAAfAAQAAwAAAAIAAAAfAAMAAwAAAAEAAAAfAAIAAwAAAAEAAAAfAAEAAwAAAAAAAAAdAAIAAwAAAAAAAAAhAAEAAwABAAAAAAAhAAIAAwAAAAEAAAAhAAMAAwAAAAEAAAAhAAQAAwAAAAEAAAAhAAUAAwABAAIAAAAiAAEAAwACAAMAAAAjAAEAAwADAAAAAAAjAAIAAwAAAAEAAAAjAAMAAwAAAAEAAAAjAAQAAwAAAAEAAAAjAAUAAwADAAIAAAAiAAUAAwACAAMAAAAlAAEAAwABAAAAAAAlAAIAAwAAAAEAAAAlAAMAAwABAAEAAAAlAAQAAwAAAAEAAAAlAAUAAwAAAAIAAAAmAAEAAwACAAMAAAAnAAEAAwADAAAAAAAnAAIAAwAAAAIAAAAmAAMAAwADAAMAAAAnAAQAAwAAAAAAAAAnAAUAAwAAAAIAAAApAAEAAwAAAAAAAAApAAIAAwAAAAEAAAApAAMAAwAAAAEAAAApAAQAAwAAAAEAAAApAAUAAwABAAIAAAAqAAUAAwACAAMAAAArAAUAAwADAAMAAAAtAAEAAwABAAAAAAAtAAIAAwAAAAEAAAAtAAMAAwAAAAEAAAAtAAQAAwAAAAEAAAAtAAUAAwABAAIAAAAuAAEAAwADAAMAAAAvAAIAAwAAAAAAAAAvAAMAAwAAAAEAAAAvAAQAAwAAAAIAAAAuAAUAAwADAAMAAAAxAAEAAwAAAAAAAAAxAAIAAwAAAAEAAAAxAAMAAwAAAAIAAAAxAAUAAwAAAAMAAAAYAAkAAwAKAAAAAAAZAAkAAwAKAAAAAAAaAAkAAwAKAAAAAAAbAAkAAwAKAAAAAAAcAAkAAwAKAAAAAAAdAAkAAwAKAAAAAAAeAAkAAwAKAAAAAAAfAAkAAwAKAAAAAAAgAAkAAwAKAAAAAAAhAAkAAwAKAAAAAAAiAAkAAwAKAAAAAAAjAAkAAwAKAAAAAAAkAAkAAwAKAAAAAAAlAAkAAwAKAAAAAAAmAAkAAwAKAAAAAAAnAAkAAwAKAAAAAAAoAAkAAwAKAAAAAAApAAkAAwAKAAAAAAAqAAkAAwAKAAAAAAArAAkAAwAKAAAAAAAsAAkAAwAKAAAAAAAtAAkAAwAKAAAAAAAuAAkAAwAKAAAAAAAvAAkAAwAKAAAAAAAwAAkAAwAKAAAAAAAxAAkAAwAKAAAAAAAyAAkAAwAKAAAAAAAzAAkAAwAKAAAAAAA0AAkAAwALAAAAAAA0AAoAAwALAAIAAAAzAAoAAwAJAAIAAAAyAAoAAwAJAAIAAAAxAAoAAwAJAAIAAAAwAAoAAwAJAAIAAAAvAAoAAwAJAAIAAAAuAAoAAwAJAAIAAAAtAAoAAwAJAAIAAAAsAAoAAwAJAAIAAAArAAsAAwAJAAMAAAAqAAsAAwAJAAMAAAApAAsAAwAJAAMAAAAoAAsAAwAJAAMAAAAnAAsAAwAJAAMAAAAmAAsAAwAJAAMAAAAlAAsAAwAJAAMAAAAkAAsAAwAJAAMAAAAjAAsAAwAJAAMAAAAiAAsAAwAJAAMAAAAhAAsAAwAJAAMAAAAgAAsAAwAJAAMAAAAfAAsAAwAJAAMAAAAeAAsAAwAJAAMAAAAeAAoAAwAJAAIAAAAdAAoAAwAJAAIAAAAcAAoAAwAJAAIAAAAbAAoAAwAJAAIAAAAaAAoAAwAJAAIAAAAZAAoAAwAJAAIAAAAYAAoAAwAJAAIAAAAYAAsAAwAJAAMAAAAZAAsAAwAJAAMAAAAaAAsAAwAJAAMAAAAbAAsAAwAJAAMAAAAcAAsAAwAJAAMAAAAdAAsAAwAJAAMAAAAfAAoAAwAJAAIAAAAgAAoAAwAJAAIAAAAhAAoAAwAJAAIAAAAiAAoAAwAJAAIAAAAjAAoAAwAJAAIAAAAkAAoAAwAJAAIAAAAlAAoAAwAJAAIAAAAmAAoAAwAJAAIAAAAnAAoAAwAJAAIAAAAoAAoAAwAJAAIAAAApAAoAAwAJAAIAAAAqAAoAAwAJAAIAAAArAAoAAwAJAAIAAAA0AAsAAwALAAMAAAAzAAsAAwAJAAMAAAAyAAsAAwAJAAMAAAAxAAsAAwAJAAMAAAAwAAsAAwAJAAMAAAAvAAsAAwAJAAMAAAAuAAsAAwAJAAMAAAAtAAsAAwAJAAMAAAAsAAsAAwAJAAMAAAA=")
+tile_set = ExtResource("3_wfdmg")
+rendering_quadrant_size = 32
+
+[node name="Forererground" type="TileMapLayer" parent="."]
+z_index = 100
+position = Vector2(-1, 0)
+tile_set = ExtResource("3_wfdmg")
+rendering_quadrant_size = 32
+
+[node name="Forerererground" type="TileMapLayer" parent="."]
+z_index = 100
+position = Vector2(-1, 0)
+tile_set = ExtResource("3_wfdmg")
+rendering_quadrant_size = 32
+
+[node name="Camera2D" type="Camera2D" parent="."]
+physics_interpolation_mode = 2
+position = Vector2(320, 460)
+ignore_rotation = false
+limit_left = -1
+limit_top = 32
+limit_right = 1695
+limit_bottom = 384
+drag_top_margin = 0.75
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("4_boc62")
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+position = Vector2(320, 460)
+script = ExtResource("5_qgkhr")
+priority = 1
+follow_mode = 2
+tween_resource = SubResource("Resource_dwntm")
+tween_on_load = false
+follow_damping = true
+follow_damping_value = Vector2(0.25, 0.4)
+limit_target = NodePath("../Foreground")
+
+[node name="EditCam" type="Node2D" parent="."]
+
+[node name="PhantomCamera2D" type="Node2D" parent="EditCam" node_paths=PackedStringArray("follow_target")]
+script = ExtResource("5_qgkhr")
+follow_mode = 1
+follow_target = NodePath("../EditTarget")
+tween_resource = SubResource("Resource_dwntm")
+tween_on_load = false
+follow_damping_value = Vector2(0.25, 0.4)
+
+[node name="EditTarget" type="Node2D" parent="EditCam"]
+
+[node name="Cursor" type="Sprite2D" parent="EditCam"]
+z_index = 3972
+texture = SubResource("GradientTexture2D_2i6qa")
+centered = false
+
+[node name="Item" type="Sprite2D" parent="EditCam/Cursor"]
+z_index = 3970
+z_as_relative = false
+texture = ExtResource("7_qkmua")
+centered = false
+hframes = 13
+vframes = 4
+
+[node name="Area2D" type="Area2D" parent="EditCam/Cursor"]
+visible = false
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EditCam/Cursor/Area2D"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_k05j6")
+
+[node name="EntitiesPlaced" type="Node2D" parent="."]
+
+[node name="EntityViewer" type="Node2D" parent="."]
+
+[node name="Controls" type="CanvasLayer" parent="."]
+offset = Vector2(0, 256)
+transform = Transform2D(1, 0, 0, 1, 0, 256)
+
+[node name="Sprite2D" type="Sprite2D" parent="Controls"]
+modulate = Color(1, 1, 1, 0.501961)
+texture = ExtResource("8_3sjhv")
+centered = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Movers" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="Control" parent="CanvasLayer/Movers" node_paths=PackedStringArray("editor")]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 16.0
+grow_horizontal = 2
+mouse_filter = 1
+script = ExtResource("10_fex0h")
+dir = Vector2(0, -1)
+editor = NodePath("../../..")
+
+[node name="Bottom" type="Control" parent="CanvasLayer/Movers" node_paths=PackedStringArray("editor")]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+script = ExtResource("10_fex0h")
+dir = Vector2(0, 1)
+editor = NodePath("../../..")
+
+[node name="Left" type="Control" parent="CanvasLayer/Movers" node_paths=PackedStringArray("editor")]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 16.0
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("10_fex0h")
+dir = Vector2(-1, 0)
+editor = NodePath("../../..")
+
+[node name="Right" type="Control" parent="CanvasLayer/Movers" node_paths=PackedStringArray("editor")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("10_fex0h")
+dir = Vector2(1, 0)
+editor = NodePath("../../..")
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 160.0
+offset_bottom = 292.0
+script = ExtResource("10_fpnf7")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_right = 144.0
+offset_bottom = 12.0
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+theme_override_fonts/font = SubResource("FontVariation_rtsyv")
+clip_text = true
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 16.0
+offset_bottom = 32.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("10_4hsp5")
+bbcode_enabled = true
+text = "[center]Level Properties[/center]"
+scroll_active = false
+
+[node name="Label2" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 64.0
+offset_right = 84.0
+offset_bottom = 77.0
+theme_override_fonts/font = ExtResource("10_4hsp5")
+text = "Music:"
+
+[node name="Label3" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 120.0
+offset_right = 84.0
+offset_bottom = 133.0
+theme_override_fonts/font = ExtResource("10_4hsp5")
+text = "Background Image:"
+
+[node name="AutoScroll" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 152.0
+offset_right = 84.0
+offset_bottom = 165.0
+theme_override_fonts/font = ExtResource("10_4hsp5")
+text = "Background Autoscroll:"
+
+[node name="xcoord" type="SpinBox" parent="CanvasLayer/Panel/AutoScroll"]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 60.0
+offset_bottom = 36.0
+theme = SubResource("Theme_baxaw")
+allow_greater = true
+suffix = "px/s"
+
+[node name="ycoord" type="SpinBox" parent="CanvasLayer/Panel/AutoScroll"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 16.0
+offset_right = 124.0
+offset_bottom = 36.0
+theme = SubResource("Theme_baxaw")
+page = 1.0
+value = 50.0
+allow_greater = true
+suffix = "px/s"
+
+[node name="ScrollScale" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 188.0
+offset_right = 93.0
+offset_bottom = 201.0
+theme_override_fonts/font = ExtResource("10_4hsp5")
+text = "Background Scroll Scale:"
+
+[node name="xscroll" type="SpinBox" parent="CanvasLayer/Panel/ScrollScale"]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 60.0
+offset_bottom = 36.0
+theme = SubResource("Theme_baxaw")
+step = 0.05
+value = 0.5
+
+[node name="yscroll" type="SpinBox" parent="CanvasLayer/Panel/ScrollScale"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 16.0
+offset_right = 124.0
+offset_bottom = 36.0
+theme = SubResource("Theme_baxaw")
+step = 0.05
+value = 0.5
+allow_greater = true
+
+[node name="MusicInput" type="LineEdit" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 80.0
+offset_right = 96.0
+offset_bottom = 95.0
+theme_override_fonts/font = SubResource("FontVariation_rd7ni")
+placeholder_text = "mus/akrillic.ogg"
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel/MusicInput"]
+layout_mode = 0
+offset_left = 92.0
+offset_right = 128.0
+offset_bottom = 15.0
+theme_override_fonts/font = SubResource("FontVariation_dxk4u")
+text = "Apply"
+
+[node name="BgInput" type="LineEdit" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 136.0
+offset_right = 96.0
+offset_bottom = 151.0
+theme_override_fonts/font = SubResource("FontVariation_rd7ni")
+placeholder_text = "gfx/bg/bg01.png"
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel/BgInput"]
+layout_mode = 0
+offset_left = 92.0
+offset_right = 128.0
+offset_bottom = 15.0
+theme_override_fonts/font = SubResource("FontVariation_dxk4u")
+text = "Apply"
+
+[node name="Label4" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 236.0
+offset_right = 84.0
+offset_bottom = 249.0
+theme_override_fonts/font = ExtResource("10_4hsp5")
+text = "Tileset Image:"
+
+[node name="TileSetInput" type="LineEdit" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 252.0
+offset_right = 96.0
+offset_bottom = 267.0
+theme_override_fonts/font = SubResource("FontVariation_rd7ni")
+placeholder_text = "gfx/tiles/tiles_inside.png"
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel/TileSetInput"]
+layout_mode = 0
+offset_left = 92.0
+offset_right = 128.0
+offset_bottom = 15.0
+theme_override_fonts/font = SubResource("FontVariation_dxk4u")
+text = "Apply"
+
+[node name="MusicStatus" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 96.0
+offset_right = 136.0
+offset_bottom = 109.0
+theme_override_fonts/font = ExtResource("10_4hsp5")
+text = "STATUS: N/A"
+autowrap_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 36.0
+offset_right = -8.0
+offset_bottom = 37.0
+grow_horizontal = 2
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 60.0
+offset_right = -8.0
+offset_bottom = 61.0
+grow_horizontal = 2
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 116.0
+offset_right = -8.0
+offset_bottom = 117.0
+grow_horizontal = 2
+
+[node name="ColorRect4" type="ColorRect" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 232.0
+offset_right = -8.0
+offset_bottom = 233.0
+grow_horizontal = 2
+
+[node name="SaveButton" type="Button" parent="CanvasLayer/Panel"]
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 44.0
+offset_bottom = 55.0
+theme_override_fonts/font = SubResource("FontVariation_dxk4u")
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="CanvasLayer/Panel"]
+offset_left = 50.0
+offset_top = 40.0
+offset_right = 86.0
+offset_bottom = 55.0
+theme_override_fonts/font = SubResource("FontVariation_dxk4u")
+text = "Load"
+
+[node name="ClearAll" type="Button" parent="CanvasLayer/Panel"]
+offset_left = 92.0
+offset_top = 40.0
+offset_right = 134.0
+offset_bottom = 55.0
+theme_override_fonts/font = SubResource("FontVariation_dxk4u")
+text = "Clear All"
+
+[node name="Panel2" type="Panel" parent="CanvasLayer/Panel/ClearAll"]
+modulate = Color(100, 100, 100, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Coordinates" type="Label" parent="CanvasLayer"]
+offset_left = 4.0
+offset_right = 100.0
+offset_bottom = 23.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("10_4hsp5")
+theme_override_font_sizes/font_size = 16
+text = "(69, 420) [69, 420]"
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer2"]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(572, 48)
+texture = ExtResource("10_58obf")
+centered = false
+
+[connection signal="gui_input" from="CanvasLayer/Movers/Top" to="CanvasLayer/Movers" method="_on_top_gui_input"]
+[connection signal="gui_input" from="CanvasLayer/Movers/Bottom" to="CanvasLayer/Movers" method="_on_bottom_gui_input"]
+[connection signal="gui_input" from="CanvasLayer/Movers/Left" to="CanvasLayer/Movers" method="_on_left_gui_input"]
+[connection signal="gui_input" from="CanvasLayer/Movers/Right" to="CanvasLayer/Movers" method="_on_right_gui_input"]
+[connection signal="mouse_entered" from="CanvasLayer/Panel/Panel" to="CanvasLayer/Panel" method="_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Panel/Panel" to="CanvasLayer/Panel" method="_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/Panel/Panel/Button" to="CanvasLayer/Panel" method="_on_button_pressed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/AutoScroll/xcoord" to="." method="_on_xcoord_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/AutoScroll/ycoord" to="." method="_on_ycoord_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/ScrollScale/xscroll" to="." method="_on_xscroll_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/ScrollScale/yscroll" to="." method="_on_yscroll_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MusicInput/Button" to="." method="music_apply"]
+[connection signal="pressed" from="CanvasLayer/Panel/BgInput/Button" to="." method="bg_change"]
+[connection signal="pressed" from="CanvasLayer/Panel/TileSetInput/Button" to="." method="change_tiles"]
+[connection signal="pressed" from="CanvasLayer/Panel/SaveButton" to="." method="save_level"]
+[connection signal="pressed" from="CanvasLayer/Panel/LoadButton" to="." method="load_level"]
+[connection signal="button_down" from="CanvasLayer/Panel/ClearAll" to="." method="confirm_clear"]
+[connection signal="button_up" from="CanvasLayer/Panel/ClearAll" to="." method="confirm_nope"]

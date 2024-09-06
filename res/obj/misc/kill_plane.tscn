@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt1l7qmmbspct"]
+
+[ext_resource type="Script" path="res://scripts/ent/kill_plane.gd" id="1_2idqd"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0rhl8"]
+
+[node name="KillPlane" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_2idqd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("WorldBoundaryShape2D_0rhl8")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
