@@ -27,6 +27,7 @@ enum TileLayer {
 }
 
 ## Every single fucking tile
+## Does not support v2 levels. Cant fucking save variants ffs
 @export var tiles: Array[Dictionary] = [
 	{}, {}, {}, {}, {}
 ]

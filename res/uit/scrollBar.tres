@@ -1,0 +1,88 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bkoh8axoacepn"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_r6ave"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5vf0"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 0.4)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_detail = 6
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wvf7g"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 0.75)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4fd8t"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.75, 0.75, 0.75, 0.75)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k5m4l"]
+content_margin_left = 0.0
+content_margin_top = 4.0
+content_margin_right = 0.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iymxc"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+anti_aliasing = false
+
+[resource]
+HScrollBar/icons/decrement = SubResource("ImageTexture_r6ave")
+HScrollBar/icons/decrement_highlight = SubResource("ImageTexture_r6ave")
+HScrollBar/icons/decrement_pressed = SubResource("ImageTexture_r6ave")
+HScrollBar/icons/increment = SubResource("ImageTexture_r6ave")
+HScrollBar/icons/increment_highlight = SubResource("ImageTexture_r6ave")
+HScrollBar/icons/increment_pressed = SubResource("ImageTexture_r6ave")
+HScrollBar/styles/grabber = SubResource("StyleBoxFlat_q5vf0")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_wvf7g")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_4fd8t")
+HScrollBar/styles/scroll = SubResource("StyleBoxFlat_k5m4l")
+HScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_iymxc")

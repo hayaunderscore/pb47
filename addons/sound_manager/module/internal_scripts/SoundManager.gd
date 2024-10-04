@@ -170,6 +170,89 @@ func fade_in_mfx(sound : String, duration : float, from_position : float = 0.0, 
 	play_mfx(sound, from_position, -60, pitch_scale, sound_to_override)
 	_fade_in_deferred("MFX", sound, duration, from_position, volume_db, pitch_scale, sound_to_override)
 
+func fade_into_bgm(sound : String, sound_to_overwrite : String, duration : float, from_position : float = 0.0, volume_db : float = -81, pitch_scale : float = -1) -> void:
+	if sound == "" or sound == null:
+		if _debug:
+			print_debug("No new sound selected")
+		return
+	
+	if sound_to_overwrite == "" or sound_to_overwrite == null:
+		if _debug:
+			print_debug("No old sound selected")
+		return
+	
+	if not is_playing(sound_to_overwrite):
+		if _debug:
+			print_debug("Sound to overwrite not found")
+		return
+	
+	fade_out(sound_to_overwrite, duration)
+	# await get_tree().create_timer(duration/2).timeout
+	fade_in_bgm(sound, duration, from_position, volume_db, pitch_scale)
+
+
+func fade_into_bgs(sound : String, sound_to_overwrite : String, duration : float, from_position : float = 0.0, volume_db : float = -81, pitch_scale : float = -1) -> void:
+	if sound == "" or sound == null:
+		if _debug:
+			print_debug("No new sound selected")
+		return
+	
+	if sound_to_overwrite == "" or sound_to_overwrite == null:
+		if _debug:
+			print_debug("No old sound selected")
+		return
+	
+	if not is_playing(sound_to_overwrite):
+		if _debug:
+			print_debug("Sound to overwrite not found")
+		return
+	
+	fade_out(sound_to_overwrite, duration/2)
+	await get_tree().create_timer(duration/2).timeout
+	fade_in_bgs(sound, duration/2, from_position, volume_db, pitch_scale)
+
+
+func fade_into_sfx(sound : String, sound_to_overwrite : String, duration : float, from_position : float = 0.0, volume_db : float = -81, pitch_scale : float = -1) -> void:
+	if sound == "" or sound == null:
+		if _debug:
+			print_debug("No new sound selected")
+		return
+	
+	if sound_to_overwrite == "" or sound_to_overwrite == null:
+		if _debug:
+			print_debug("No old sound selected")
+		return
+	
+	if not is_playing(sound_to_overwrite):
+		if _debug:
+			print_debug("Sound to overwrite not found")
+		return
+	
+	fade_out(sound_to_overwrite, duration/2)
+	await get_tree().create_timer(duration/2).timeout
+	fade_in_sfx(sound, duration/2, from_position, volume_db, pitch_scale)
+
+
+func fade_into_mfx(sound : String, sound_to_overwrite : String, duration : float, from_position : float = 0.0, volume_db : float = -81, pitch_scale : float = -1) -> void:
+	if sound == "" or sound == null:
+		if _debug:
+			print_debug("No new sound selected")
+		return
+	
+	if sound_to_overwrite == "" or sound_to_overwrite == null:
+		if _debug:
+			print_debug("No old sound selected")
+		return
+	
+	if not is_playing(sound_to_overwrite):
+		if _debug:
+			print_debug("Sound to overwrite not found")
+		return
+	
+	fade_out(sound_to_overwrite, duration/2)
+	await get_tree().create_timer(duration/2).timeout
+	fade_in_mfx(sound, duration/2, from_position, volume_db, pitch_scale)
+
 
 # Fades out a given sound
 func fade_out(sound : String, duration : float) -> void:

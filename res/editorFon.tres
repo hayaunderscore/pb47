@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://cq4gl8lwmtnjg"]
+
+[ext_resource type="FontFile" uid="uid://cx5vcy706x0hi" path="res://gfx/font/font_as.ttf" id="1_77sgl"]
+
+[resource]
+base_font = ExtResource("1_77sgl")
+spacing_top = -4

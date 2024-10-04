@@ -34,8 +34,15 @@ const ACCELERATION_TURN = 60
 const DECELERATION = 40
 const ACCEL_DECEL = 15
 
+var gravity_multiplier: float = 1.0
+var max_fall_speed: float = 640.0
+
+var base_acceleration: float = 4096.0
+var base_deceleration: float = 700.0
+var air_mult: float = 0.76
+
 const SHOTGUN_HFORCE = MAX_SPEED * 3
-const SHOTGUN_HFORCE_WALLED = MAX_SPEED * 4
+const SHOTGUN_HFORCE_WALLED = MAX_SPEED * 3.5
 const SHOTGUN_HFORCE_FLOORED = MAX_SPEED * 2.5
 const SHOTGUN_VFORCE = 600
 
@@ -43,7 +50,7 @@ const MACHINEGUN_HFORCE = MAX_SPEED * 2
 const MACHINEGUN_VFORCE = 275
 
 const REVOLVER_HFORCE = MAX_SPEED * 5
-const REVOLVER_HFORCE_WALLED = MAX_SPEED * 5.75
+const REVOLVER_HFORCE_WALLED = MAX_SPEED * 5.5
 const REVOLVER_HFORCE_FLOORED = MAX_SPEED * 7
 const REVOLVER_VFORCE = 1200
 
@@ -66,6 +73,8 @@ const SOFTCOL_MOVE_AMOUNT = 12
 const SOFTCOL_MOVE_AMOUNT_MIDDLE = 9
 
 var active: bool = true
+
+@onready var dustscene: PackedScene = preload("res://res/obj/VFX/dust.tscn")
 
 func attempt_correction(amount: int):
 	var delta = get_physics_process_delta_time()
@@ -99,6 +108,7 @@ func iframe_timeout():
 		visible = true
 		
 var faceLerp: float = 1
+var lastvelocity: Vector2 = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
 	if health_comp.dead:
@@ -110,9 +120,21 @@ func _physics_process(delta: float) -> void:
 		$WileTimer.start()
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		# Limit fall speed
+		velocity.y = min(velocity.y, max_fall_speed)
 		
 	if not iframes.is_stopped() and (floori(iframes.time_left*30) % 2 == 0):
 		visible = !visible
+	
+	if is_on_floor() and not last_floor:
+		for i in Vector3(-0.75, 0.75, 0.25):
+			var dust := dustscene.instantiate()
+			dust.velocity.x = i * randf_range(1.25, 2.5)
+			dust.velocity.y = -randf_range(0.1, 0.5)
+			dust.global_position = global_position
+			var rand: float = randf_range(-0.25, 0.25)
+			dust.scale = Vector2(lastvelocity.y / max_fall_speed + rand, lastvelocity.y / max_fall_speed + rand) * 1.5
+			Map.add_object(dust)
 	
 	# Switch to a different collision body when we're supposed to be on a slope.
 	col.disabled = slopeColArea.has_overlapping_bodies()
@@ -132,28 +154,29 @@ func _physics_process(delta: float) -> void:
 	
 	var axis: float = round(Input.get_axis("left", "right"))
 	if axis:
-		if abs(velocity.x) > MAX_SPEED && axis != facing:
-			velocity.x = move_toward(velocity.x, MAX_SPEED * axis, ACCELERATION)
-		elif abs(velocity.x) > MAX_SPEED && axis == facing:
-			velocity.x = move_toward(velocity.x, MAX_SPEED * axis, ACCEL_DECEL)
-		else:
-			velocity.x = move_toward(velocity.x, MAX_SPEED * axis, ACCELERATION)
-		facing = axis
+		@warning_ignore("narrowing_conversion")
+		facing = sign(axis)
 		var last = anim.current_animation_position
 		anim.play(prefix + "Walk")
 		anim.seek(last)
 	else:
-		velocity.x = move_toward(velocity.x, 0, DECELERATION)
 		if not ledgeCheck.is_colliding():
 			anim.play("Ledge")
 		else:
 			anim.play(prefix + "Idle")
+	
+	var mul: float = 1.0 if is_on_floor() else air_mult
+	var signed: float = sign(axis)
+	if abs(velocity.x) > MAX_SPEED and sign(velocity.x) == signed:
+		velocity.x = move_toward(velocity.x, MAX_SPEED * signed, base_deceleration * mul * delta)
+	else:
+		velocity.x = move_toward(velocity.x, MAX_SPEED * signed, base_acceleration * mul * delta)
 	faceLerp = lerpf(faceLerp, facing, 0.3)
 	if faceLerp > 0.25 or faceLerp < -0.25:
 		spritePivot.scale.x = faceLerp
 	$SlopeCheck.scale.x = facing
 	if not is_on_floor():
-		anim.play("Airborne" if velocity.y < 0 else "Airborne2")
+		anim.play(prefix + ("Airborne" if velocity.y < 0 else "Airborne2"))
 	
 	var gunselect: float = Input.get_axis("switch_left", "switch_right")
 	if Input.is_action_just_pressed("switch_left") or Input.is_action_just_pressed("switch_right"):
@@ -230,9 +253,6 @@ func _physics_process(delta: float) -> void:
 		if hud:
 			hud.health_set(health_comp.health)
 		death(self)
-		
-	if Input.is_action_just_pressed("ui_cancel"):
-		Map.move_player(Vector2(4, 10), "res://res/lvl/building_b.tscn")
 	
 	# Handle camera offsets and other things.
 	if phantomCamera:
@@ -245,30 +265,35 @@ func _physics_process(delta: float) -> void:
 		else:
 			phantomCamera.follow_offset.y = lerp(phantomCamera.follow_offset.y, 0.0, abs(velocity.y)/MAX_SPEED*2/30)
 
+	lastvelocity = velocity
 	last_floor = is_on_floor()
 	attempt_correction(12)
 	move_and_slide()
 	
-func add_gun(gun: BliggyGun):
-	gun.player = self
-	if gun.max_ammo > 0:
-		gun.ammo = gun.max_ammo
-	guns.append(gun)
+func add_gun(gund: BliggyGun):
+	gund.player = self
+	if gund.max_ammo > 0:
+		gund.ammo = gund.max_ammo
+	guns.append(gund)
 
+@warning_ignore("integer_division")
 func gun_fire(id: int):
 	gunSound.play()
 	match id:
 		SHOTGUN_ID:
 			guns[currentGun].gunCooldown = 0.15
 			if gunaxis.y <= 0:
+				@warning_ignore("incompatible_ternary")
 				var hforce = SHOTGUN_HFORCE_FLOORED if is_on_floor() else SHOTGUN_HFORCE_WALLED
 				if recoilCheckLeft.is_colliding() and recoilCheckLeft.get_collision_normal() == Vector2.RIGHT and gunaxis.x < 0:
 					velocity.x = hforce
-					velocity.y = -SHOTGUN_VFORCE / 2
+					@warning_ignore("integer_division")
+					velocity.y = -SHOTGUN_VFORCE / 1.25
 					# print("hi")
 				elif recoilCheckRight.is_colliding() and recoilCheckRight.get_collision_normal() == Vector2.LEFT and gunaxis.x > 0:
 					velocity.x = -hforce
-					velocity.y = -SHOTGUN_VFORCE / 2
+					@warning_ignore("integer_division")
+					velocity.y = -SHOTGUN_VFORCE / 1.25
 		MACHINEGUN_ID:
 			guns[currentGun].gunCooldown = 0.09
 			guns[currentGun].addoffset.y = move_toward(guns[currentGun].addoffset.y, randi_range(-2, 2), 1)
@@ -281,17 +306,21 @@ func gun_fire(id: int):
 			guns[currentGun].gunCooldown = 2.0
 			velocity.x = REVOLVER_VFORCE / 3 * gunaxis.x * -1
 			if gunaxis.y <= 0:
+				@warning_ignore("incompatible_ternary")
 				var hforce = REVOLVER_HFORCE_FLOORED if is_on_floor() else REVOLVER_HFORCE_WALLED
 				if recoilCheckLeft.is_colliding() and gunaxis.x < 0:
 					velocity.x = hforce
+					@warning_ignore("integer_division")
 					velocity.y = -REVOLVER_VFORCE / 2
 					# print("hi")
 				elif recoilCheckRight.is_colliding() and gunaxis.x > 0:
 					velocity.x = -hforce
+					@warning_ignore("integer_division")
 					velocity.y = -REVOLVER_VFORCE / 2
 	pass
 
-func death(who: Node2D):
+@warning_ignore("integer_division")
+func death(_who: Node2D):
 	# Spawn difference circle and prepare to explode
 	iframes.stop()
 	visible = true

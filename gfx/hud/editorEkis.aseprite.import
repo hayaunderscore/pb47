@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://de1sbjp1a7e2p"
+path="res://.godot/imported/editorEkis.aseprite-e31895eb75e24198903f89bb37907bb6.res"
+
+[deps]
+
+source_file="res://gfx/hud/editorEkis.aseprite"
+dest_files=["res://.godot/imported/editorEkis.aseprite-e31895eb75e24198903f89bb37907bb6.res"]
+
+[params]
+

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PLANT BRAWL 47"
-run/main_scene="res://main.tscn"
+run/main_scene="res://title.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="PB47"
 config/features=PackedStringArray("4.3", "Mobile")
@@ -20,10 +20,10 @@ config/icon="res://icon.png"
 [autoload]
 
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
-PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 Globals="*res://scripts/globals.gd"
-SoundManager="*res://addons/sound_manager/module/SoundManager.tscn"
 Map="*res://scripts/map.gd"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+SoundManager="*res://addons/sound_manager/module/SoundManager.tscn"
 
 [display]
 
@@ -32,12 +32,11 @@ window/size/viewport_height=360
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
-window/stretch/aspect="ignore"
 window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/Point2D/plugin.cfg", "res://addons/better-terrain/plugin.cfg", "res://addons/native_dialogs/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/primitives2d/plugin.cfg", "res://addons/projectiles_plugin/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/virtual_joystick/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/Point2D/plugin.cfg", "res://addons/SmoothScroll/plugin.cfg", "res://addons/better-terrain/plugin.cfg", "res://addons/marquee/plugin.cfg", "res://addons/native_dialogs/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/plugin_restarter/plugin.cfg", "res://addons/primitives2d/plugin.cfg", "res://addons/projectiles_plugin/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/virtual_joystick/plugin.cfg")
 
 [global_group]
 
@@ -154,6 +153,36 @@ editor_down={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
 ]
 }
+editor_flipv={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":71,"physical_keycode":0,"key_label":0,"unicode":103,"location":0,"echo":false,"script":null)
+]
+}
+editor_leftlayer={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":74,"physical_keycode":0,"key_label":0,"unicode":106,"location":0,"echo":false,"script":null)
+]
+}
+editor_rightlayer={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":76,"physical_keycode":0,"key_label":0,"unicode":108,"location":0,"echo":false,"script":null)
+]
+}
+editor_tilepanel={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":3,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+editor_copy={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":67,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+editor_paste={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":86,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [input_devices]
 
@@ -183,5 +212,5 @@ common/physics_interpolation=true
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
-environment/defaults/default_clear_color=Color(0.0470588, 0.180392, 0.266667, 1)
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 2d/snap/snap_2d_transforms_to_pixel=true

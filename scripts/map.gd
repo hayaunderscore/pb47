@@ -35,7 +35,7 @@ func new_game(target: String, tile_coords: Vector2):
 func create_fade(speed_scale: float = 4, fade_in: bool = false):
 	var fade_instance: CanvasLayer = fadein.instantiate() if fade_in else fade.instantiate()
 	var anim: AnimationPlayer = fade_instance.get_node("AnimationPlayer")
-	anim.speed_scale = 4
+	anim.speed_scale = speed_scale
 	get_tree().current_scene.add_child(fade_instance)
 	return 0.768 / speed_scale
 	
@@ -75,7 +75,7 @@ func find_hud():
 	get_tree().current_scene.add_child(hud_instance)
 	player.hud = hud_instance
 
-func load_level_final(progress):
+func load_level_final(_progress):
 	loading_instance.get_node("Label").text = "loading.... Done!"
 	create_fade(4, false)
 	target_scene_instance = ResourceLoader.load_threaded_get(target_scene).instantiate()
@@ -89,7 +89,7 @@ func load_level_final(progress):
 	loading_instance.queue_free()
 	loading = false
 	
-func load_level_screen(delta):
+func load_level_screen(_delta):
 	var progress = []
 	ResourceLoader.load_threaded_get_status(target_scene, progress)
 	if ResourceLoader.load_threaded_get_status(target_scene) == ResourceLoader.THREAD_LOAD_LOADED:

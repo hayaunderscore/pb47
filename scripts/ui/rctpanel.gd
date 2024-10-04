@@ -20,7 +20,7 @@ func _input(event: InputEvent) -> void:
 		if dragging:
 			newpos = get_viewport().get_mouse_position() - dragDist * dir
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if dragging:
 		global_position += (newpos - position)
 		global_position.x = max(0, min(global_position.x, 640 - size.x / 2))

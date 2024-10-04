@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ccnyns74fphsp" path="res://gfx/hud/editorIcons.png" id="1_cg5lf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gnry0"]
-size = Vector2(24, 24)
+size = Vector2(31, 31)
 
 [node name="EntityView" type="Area2D"]
 collision_layer = 0

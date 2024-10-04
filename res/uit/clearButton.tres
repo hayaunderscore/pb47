@@ -1,0 +1,36 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dfuqfu3phxcfn"]
+
+[ext_resource type="Texture2D" uid="uid://l55xxtebm77l" path="res://gfx/hud/editorCircleButton.png" id="1_eiaxj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_agv4q"]
+texture = ExtResource("1_eiaxj")
+expand_margin_bottom = 2.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m1yd7"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d82cj"]
+texture = ExtResource("1_eiaxj")
+expand_margin_bottom = 2.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cn1a2"]
+texture = ExtResource("1_eiaxj")
+expand_margin_bottom = 2.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7crfd"]
+texture = ExtResource("1_eiaxj")
+expand_margin_bottom = 2.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[resource]
+Button/styles/disabled = SubResource("StyleBoxTexture_agv4q")
+Button/styles/focus = SubResource("StyleBoxEmpty_m1yd7")
+Button/styles/hover = SubResource("StyleBoxTexture_d82cj")
+Button/styles/normal = SubResource("StyleBoxTexture_cn1a2")
+Button/styles/pressed = SubResource("StyleBoxTexture_7crfd")

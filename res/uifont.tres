@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://b72mbxc2mmmmd"]
+
+[ext_resource type="FontVariation" uid="uid://cq4gl8lwmtnjg" path="res://res/editorFon.tres" id="1_i443n"]
+
+[resource]
+base_font = ExtResource("1_i443n")
+spacing_top = -6

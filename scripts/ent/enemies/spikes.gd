@@ -9,7 +9,7 @@ func _ready() -> void:
 	# Erm.... no?
 	hitbox.automatically_deplete_health = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	move_and_slide()
 	# Constantly check for areas here instead of when we enter it
 	if hitbox.has_overlapping_areas():

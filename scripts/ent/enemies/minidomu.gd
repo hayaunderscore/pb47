@@ -14,6 +14,8 @@ func _ready():
 	hitbox.monitoring = false
 	hitbox.monitorable = false
 	randomSpeed = randi_range(-20, 20)
+	$AnimatedSprite2D.scale.x = facing
+	$Node2D.scale.x = facing
 	super()
 
 func _process(delta: float) -> void:
@@ -37,25 +39,26 @@ func _process(delta: float) -> void:
 	
 	move_and_slide()
 	
-func taunt(victim: Node2D):
+func taunt(_victim: Node2D):
 	pass
 
 var lastwho: Node2D
-func death(who: Node2D):
+func death(_who: Node2D):
 	$AnimationPlayer.play("Explode")
 	$AnimatedSprite2D.play("Dead")
 	# $HitboxComponent.queue_free()
 	
+@warning_ignore("integer_division")
 func explode():
 	global_position.y -= 55/2
-	var body = Globals.spawn_spinny_animated($AnimatedSprite2D, self, self)
+	Globals.spawn_spinny_animated($AnimatedSprite2D, self, self)
 	var expl = Globals.spawn_explosion(self, 4, 0.25)
 	expl.get_node("AudioStreamPlayer2D").stream = preload("res://sfx/bloopExplode2.wav")
 	expl.get_node("AudioStreamPlayer2D").volume_db = 0
 	expl.get_node("AudioStreamPlayer2D").play()
-	var range: Area2D = $ExplodeRange2
-	if range.has_overlapping_areas():
-		for area in range.get_overlapping_areas():
+	var ranged: Area2D = $ExplodeRange2
+	if ranged.has_overlapping_areas():
+		for area in ranged.get_overlapping_areas():
 			if area is HitboxComponent:
 				if area.health_component:
 					area.health_component.damage(2, self)

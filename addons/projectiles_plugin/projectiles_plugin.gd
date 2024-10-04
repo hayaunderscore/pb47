@@ -34,7 +34,6 @@ func _enter_tree():
 	editor_button = add_control_to_bottom_panel(editor_instance, "Projectiles Editor")
 	
 	inspector_plugin = load("res://addons/projectiles_plugin/inspector_plugin.gd").new()
-	inspector_plugin.editor_plugin = self
 	inspector_plugin.connect("pattern_selected", Callable(editor_instance, "load_pattern"))
 	inspector_plugin.connect("pattern_selected", open_projectiles_editor)
 	add_inspector_plugin(inspector_plugin)

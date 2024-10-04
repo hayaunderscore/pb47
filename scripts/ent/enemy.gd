@@ -26,10 +26,10 @@ func taunt(victim: Node2D):
 	if victim.health_component:
 		victim.health_component.damage(damage_dealt, self)
 
-func death(who: Node2D):
+func death(_who: Node2D):
 	queue_free()
 
-func damage(old: int, health: int, who: Node2D):
+func damage(old: int, health: int, _who: Node2D):
 	if randi_range(0, 255) > pain_chance and not old-health >= 8:
 		health_comp.health = old
 		health_comp.dead = false

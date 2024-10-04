@@ -6,6 +6,7 @@ var ogcolor: Color
 
 func _ready():
 	ogcolor = modulate
+	scale.x = facing
 	super()
 
 func _process(delta: float) -> void:
@@ -16,11 +17,11 @@ func _process(delta: float) -> void:
 	if stuntime == 0 and not taunting and not health_comp.dead:
 		$AnimatedSprite2D.play("Run")
 		if not $FloorCheck.is_colliding() and is_on_floor():
-			scale.x *= -1
 			facing *= -1
+			scale.x *= -1
 		if $WallCheck.is_colliding() and is_on_floor():
-			scale.x *= -1
 			facing *= -1
+			scale.x *= -1
 		velocity.x = 100 * facing
 	else:
 		velocity.x = move_toward(velocity.x, 0, 30)
@@ -51,9 +52,10 @@ func death(who: Node2D):
 	$AnimatedSprite2D.play("Dead")
 	$HitboxComponent.queue_free()
 	
+@warning_ignore("integer_division")
 func explode():
 	global_position.y -= 55/2
-	var body = Globals.spawn_spinny_animated($AnimatedSprite2D, self, self)
+	Globals.spawn_spinny_animated($AnimatedSprite2D, self, self)
 	var expl = Globals.spawn_explosion(self, 1)
 	expl.get_node("AudioStreamPlayer2D").stream = preload("res://sfx/bloopExplode2.wav")
 	expl.get_node("AudioStreamPlayer2D").volume_db = 0

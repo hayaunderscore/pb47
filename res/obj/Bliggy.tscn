@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dwx7fypcrsntl"]
+[gd_scene load_steps=26 format=3 uid="uid://dwx7fypcrsntl"]
 
 [ext_resource type="Script" path="res://scripts/ent/bliggy.gd" id="1_y7nhe"]
 [ext_resource type="PackedScene" uid="uid://cesjt2b6pstuk" path="res://res/obj/BliggyMachinegun.tscn" id="2_1ggri"]
@@ -93,6 +93,62 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [9]
+}
+
+[sub_resource type="Animation" id="Animation_nhn3e"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+
+[sub_resource type="Animation" id="Animation_ystaw"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [19]
 }
 
 [sub_resource type="Animation" id="Animation_aaec8"]
@@ -207,6 +263,34 @@ tracks/1/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_268g4"]
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [20, 21]
+}
+
 [sub_resource type="Animation" id="Animation_f8n5i"]
 length = 0.6
 loop_mode = 1
@@ -235,39 +319,13 @@ tracks/1/keys = {
 "values": [1, 2, 3, 4, 5, 6]
 }
 
-[sub_resource type="Animation" id="Animation_268g4"]
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SpritePivot/Sprite2D:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpritePivot/Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [18, 19]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_d3fu4"]
 _data = {
 "Airborne": SubResource("Animation_w0oye"),
 "Airborne2": SubResource("Animation_3ntce"),
 "Dead": SubResource("Animation_n6uw6"),
+"EvilAirborne": SubResource("Animation_nhn3e"),
+"EvilAirborne2": SubResource("Animation_ystaw"),
 "EvilIdle": SubResource("Animation_aaec8"),
 "EvilWalk": SubResource("Animation_1gp53"),
 "Hurt": SubResource("Animation_y6viy"),
@@ -302,7 +360,7 @@ position = Vector2(-27.5, -48)
 texture = ExtResource("2_rdp1g")
 centered = false
 hframes = 5
-vframes = 4
+vframes = 5
 frame = 7
 metadata/_aseprite_wizard_config_ = {
 "i_mode": 0,
@@ -316,7 +374,7 @@ metadata/_aseprite_wizard_config_ = {
 "slice": "",
 "source": "res://gfx/ent/bliggyFinal.aseprite"
 }
-metadata/_aseprite_wizard_source_file_hash_ = "f88d9d81b0cea1f271c28607cabeb7a3"
+metadata/_aseprite_wizard_source_file_hash_ = "c301b607f215e145b4b960b0e8b9b3df"
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
 "layer_section": false,

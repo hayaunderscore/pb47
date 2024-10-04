@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://gw1evflhr80o"]
+
+[ext_resource type="Texture2D" uid="uid://dkydjagxlqgrt" path="res://gfx/caret/vfx.png" id="1_6q0g5"]
+[ext_resource type="Script" path="res://scripts/efx/dust.gd" id="2_xfclq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unn24"]
+atlas = ExtResource("1_6q0g5")
+region = Rect2(0, 0, 46, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exapm"]
+atlas = ExtResource("1_6q0g5")
+region = Rect2(46, 0, 46, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fupa0"]
+atlas = ExtResource("1_6q0g5")
+region = Rect2(92, 0, 46, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sh3ry"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unn24")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exapm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fupa0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Dust" type="AnimatedSprite2D"]
+z_index = 500
+sprite_frames = SubResource("SpriteFrames_sh3ry")
+autoplay = "default"
+offset = Vector2(8, 0)
+script = ExtResource("2_xfclq")

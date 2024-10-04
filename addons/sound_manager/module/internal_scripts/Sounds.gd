@@ -57,4 +57,3 @@ func get_sound_name() -> String:
 
 func _on_self_finished() -> void:
 	emit_signal("finished_playing", self.get_sound_name());
-

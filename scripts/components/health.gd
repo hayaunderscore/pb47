@@ -6,7 +6,7 @@ class_name HealthComponent
 var health: int = default_health
 var dead: bool = false
 
-signal health_gained(gain: int)
+signal health_gained(old_health: int, health: int)
 signal health_deplete(old_health: int, health: int, who: Node2D)
 signal death
 signal revived
@@ -23,11 +23,11 @@ func damage(dmg: int, who: Node2D):
 		dead = true
 		death.emit(who)
 
-func heal(heal: int):
+func heal(heald: int):
 	if health >= max_health: return
 	if dead:
 		dead = false
 		revived.emit()
 	var old = health
-	health += heal
-	health_deplete.emit(old, health)
+	health += heald
+	health_gained.emit(old, health)

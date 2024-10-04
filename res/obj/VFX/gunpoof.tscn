@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxdkvr2skdf02"]
+
+[ext_resource type="Texture2D" uid="uid://dkydjagxlqgrt" path="res://gfx/caret/vfx.png" id="1_lisid"]
+[ext_resource type="Script" path="res://scripts/efx/gunpoof.gd" id="2_4hk68"]
+
+[node name="GunDust" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.752941)
+z_index = 500
+z_as_relative = false
+texture = ExtResource("1_lisid")
+offset = Vector2(8, 0)
+hframes = 8
+frame = 6
+script = ExtResource("2_4hk68")

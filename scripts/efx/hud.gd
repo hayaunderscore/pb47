@@ -46,10 +46,7 @@ static func get_time_as_formatted_string(time_in_seconds: float, format: String)
 	
 	@warning_ignore("integer_division")
 	var days : int = total_seconds / 86400
-	
 	var fractional_part := time_in_seconds - int(time_in_seconds)
-	
-	var milliseconds := int(fractional_part * 1000)
 	
 	var i : int = 0
 	while i < format.length():

@@ -14,7 +14,7 @@ class_name BliggyGun
 ## The id of the gun, for use with the player script.
 @export_range(0, 2048) var id: int
 ## The player using the gun. REQUIRED, otherwise it will not run.
-@export var player: Bliggy
+@export var player: CharacterBody2D
 ## Max ammo. 0 means no ammo.
 @export_range(0, 999) var max_ammo: int = 0
 
@@ -40,6 +40,8 @@ var addoffset: Vector2
 ## The speed to reset the rotation with.
 @export_range(0.01, 90, 0.1) var rotation_speed: float = 0.8
 
+@onready var gunpoofscene: PackedScene = preload("res://res/obj/VFX/gunpoof.tscn")
+
 func sprite_changed():
 	print("hi")
 	sprite.texture = texture
@@ -53,7 +55,7 @@ func _ready():
 	shooter.owner_bullet = player
 	ammo = max_ammo
 	
-func shoot_gun(rotation: float):
+func shoot_gun(rotat: float):
 	if Engine.is_editor_hint(): return
 	if gunCooldown != 0: return
 	if max_ammo > 0:
@@ -64,8 +66,22 @@ func shoot_gun(rotation: float):
 			ammoLabel.modulate.g = 0
 			ammoLabel.modulate.b = 0
 			return
-	shooter.rotation = rotation
+	shooter.rotation = rotat
 	shooter.fire_pattern()
+	var poof := gunpoofscene.instantiate()
+	poof.global_position = shooter.global_position
+	poof.global_position.x -= recoil_offset / 2
+	if id == 2: # Revolver
+		poof.scale.x *= 2
+	poof.scale.y = poof.scale.x
+	poof.rotation = rotat
+	Map.add_child(poof)
+	match id:
+		0:
+			Globals.screen_shake(0.03, self)
+		1:
+			Globals.screen_shake(0.0125, self)
+		# Revolver has its own screen shake
 	# This is generally redundant but who cares
 	player.gun_fire(id)
 	playedReload = false

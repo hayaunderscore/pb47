@@ -130,6 +130,7 @@ func parse_ogg(data: PackedByteArray):
 	var hex = data.slice(0, 0x100).hex_encode()
 	var idx = hex.find("766f72626973")
 	if idx > 0:
+		@warning_ignore("integer_division")
 		idx = hex.find("766f72626973", idx + 6) / 2 + 6
 		# Let's just use the 1st byte of the 32-bit length values for the length
 		# Skip over vendor_string

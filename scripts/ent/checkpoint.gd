@@ -11,7 +11,7 @@ func _ready() -> void:
 	# Erm.... no?
 	hitbox.automatically_deplete_health = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if is_instance_valid(target):
 		var dist = target.global_position.x - global_position.x
 		$AnimatedSprite2D.scale.x = sign(dist)
@@ -36,12 +36,12 @@ func _on_semi_peek_area_entered(area: Area2D) -> void:
 	$AnimatedSprite2D.play("RiePeek")
 	target = area
 
-func _on_semi_peek_area_exited(area: Area2D) -> void:
+func _on_semi_peek_area_exited(_area: Area2D) -> void:
 	$AnimatedSprite2D.play("BuriedIdle")
 	target = null
 
-func _on_full_peek_area_entered(area: Area2D) -> void:
+func _on_full_peek_area_entered(_area: Area2D) -> void:
 	$AnimatedSprite2D.play("RieIdle")
 
-func _on_full_peek_area_exited(area: Area2D) -> void:
+func _on_full_peek_area_exited(_area: Area2D) -> void:
 	$AnimatedSprite2D.play("RiePeek")

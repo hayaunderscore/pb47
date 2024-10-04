@@ -8,6 +8,7 @@ var damageSound: AudioStream = preload("res://sfx/new/necoDamage1.wav")
 
 func _ready():
 	ogcolor = modulate
+	scale.x = facing
 	super()
 
 func _process(delta: float) -> void:
@@ -18,11 +19,11 @@ func _process(delta: float) -> void:
 	if stuntime == 0:
 		$AnimatedSprite2D.play("Run")
 		if not $FloorCheck.is_colliding() and is_on_floor():
-			scale.x *= -1
 			facing *= -1
+			scale.x *= -1
 		if $WallCheck.is_colliding() and is_on_floor():
-			scale.x *= -1
 			facing *= -1
+			scale.x *= -1
 		if $JumpCheck.is_colliding() and is_on_floor():
 			velocity.y = -400
 		velocity.x = 200 * facing
@@ -31,6 +32,7 @@ func _process(delta: float) -> void:
 	
 	move_and_slide()
 	
+@warning_ignore("integer_division")
 func death(who: Node2D):
 	$AnimatedSprite2D.play("Dead")
 	global_position.y -= 55/2
